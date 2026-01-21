@@ -16,9 +16,8 @@ import {
 } from "@/components/tiptap-ui/heading-button"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
 
 export interface HeadingButtonProps
@@ -105,10 +104,9 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
         data-disabled={!canToggle}
         aria-label={label}
         aria-pressed={isActive}
-        tooltip={label}
+        title={label}
         onClick={handleClick}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

@@ -16,9 +16,8 @@ import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
 import { parseShortcutKeys } from "@/lib/tiptap-utils"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export interface BlockquoteButtonProps
   extends Omit<ButtonProps, "type">,
@@ -103,10 +102,9 @@ export const BlockquoteButton = forwardRef<
         data-disabled={!canToggle}
         aria-label={label}
         aria-pressed={isActive}
-        tooltip="Blockquote"
+        title="Blockquote"
         onClick={handleClick}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

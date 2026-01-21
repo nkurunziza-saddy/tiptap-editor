@@ -16,9 +16,8 @@ import {
 } from "@/components/tiptap-ui/image-upload-button"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 type IconProps = React.SVGProps<SVGSVGElement>
 type IconComponent = ({ className, ...props }: IconProps) => React.ReactElement
@@ -113,10 +112,9 @@ export const ImageUploadButton = forwardRef<
         data-disabled={!canInsert}
         aria-label={label}
         aria-pressed={isActive}
-        tooltip={label}
+        title={label}
         onClick={handleClick}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

@@ -19,9 +19,9 @@ import {
 } from "@/components/tiptap-ui/undo-redo-button"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import type { ButtonProps } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export interface UndoRedoButtonProps
   extends Omit<ButtonProps, "type">,
@@ -101,10 +101,9 @@ export const UndoRedoButton = forwardRef<
         role="button"
         tabIndex={-1}
         aria-label={label}
-        tooltip={label}
+        title={label}
         onClick={handleClick}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

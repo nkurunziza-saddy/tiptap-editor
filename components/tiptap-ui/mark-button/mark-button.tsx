@@ -13,9 +13,8 @@ import type { Mark, UseMarkConfig } from "@/components/tiptap-ui/mark-button"
 import { MARK_SHORTCUT_KEYS, useMark } from "@/components/tiptap-ui/mark-button"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export interface MarkButtonProps
   extends Omit<ButtonProps, "type">,
@@ -101,10 +100,9 @@ export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
         tabIndex={-1}
         aria-label={label}
         aria-pressed={isActive}
-        tooltip={label}
+        title={label}
         onClick={handleClick}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

@@ -14,15 +14,15 @@ import type { UseHeadingDropdownMenuConfig } from "@/components/tiptap-ui/headin
 import { useHeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-menu"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button, ButtonGroup } from "@/components/tiptap-ui-primitive/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@/components/tiptap-ui-primitive/dropdown-menu"
-import { Card, CardBody } from "@/components/tiptap-ui-primitive/card"
+} from "@/components/tiptap-ui-primitive/dropdown-menu/dropdown-menu"
+import { Card, CardContent } from "@/components/ui/card"
 
 export interface HeadingDropdownMenuProps
   extends Omit<ButtonProps, "type">,
@@ -92,7 +92,7 @@ export const HeadingDropdownMenu = forwardRef<
             data-disabled={!canToggle}
             aria-label="Format text as heading"
             aria-pressed={isActive}
-            tooltip="Heading"
+            title="Heading"
             {...buttonProps}
             ref={ref}
           >
@@ -103,7 +103,7 @@ export const HeadingDropdownMenu = forwardRef<
 
         <DropdownMenuContent align="start" portal={portal}>
           <Card>
-            <CardBody>
+            <CardContent>
               <ButtonGroup>
                 {levels.map((level) => (
                   <DropdownMenuItem key={`heading-${level}`} asChild>
@@ -111,12 +111,12 @@ export const HeadingDropdownMenu = forwardRef<
                       editor={editor}
                       level={level}
                       text={`Heading ${level}`}
-                      showTooltip={false}
+             
                     />
                   </DropdownMenuItem>
                 ))}
               </ButtonGroup>
-            </CardBody>
+            </CardContent>
           </Card>
         </DropdownMenuContent>
       </DropdownMenu>

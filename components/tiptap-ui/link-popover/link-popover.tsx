@@ -18,8 +18,8 @@ import type { UseLinkPopoverConfig } from "@/components/tiptap-ui/link-popover"
 import { useLinkPopover } from "@/components/tiptap-ui/link-popover"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button, ButtonGroup } from "@/components/tiptap-ui-primitive/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import {
   Popover,
   PopoverContent,
@@ -28,10 +28,11 @@ import {
 import { Separator } from "@/components/tiptap-ui-primitive/separator"
 import {
   Card,
-  CardBody,
+  CardContent,
   CardItemGroup,
-} from "@/components/tiptap-ui-primitive/card"
+} from "@/components/ui/card"
 import { Input, InputGroup } from "@/components/tiptap-ui-primitive/input"
+import { cn } from "@/lib/utils"
 
 export interface LinkMainProps {
   /**
@@ -87,7 +88,7 @@ export const LinkButton = forwardRef<HTMLButtonElement, ButtonProps>(
         role="button"
         tabIndex={-1}
         aria-label="Link"
-        tooltip="Link"
+        title="Link"
         ref={ref}
         {...props}
       >
@@ -121,14 +122,10 @@ const LinkMain: React.FC<LinkMainProps> = ({
 
   return (
     <Card
-      style={{
-        ...(isMobile ? { boxShadow: "none", border: 0 } : {}),
-      }}
+      className={cn(isMobile ? "shadow-none border-0" : "")}
     >
-      <CardBody
-        style={{
-          ...(isMobile ? { padding: 0 } : {}),
-        }}
+      <CardContent
+        className={cn(isMobile ? "p-0" : "")}
       >
         <CardItemGroup orientation="horizontal">
           <InputGroup>
@@ -181,7 +178,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
             </Button>
           </ButtonGroup>
         </CardItemGroup>
-      </CardBody>
+      </CardContent>
     </Card>
   )
 }

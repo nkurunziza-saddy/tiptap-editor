@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-import { cn } from "@/lib/tiptap-utils"
+import { cn } from "@/lib/utils"
 
 
 function DropdownMenu({
@@ -42,7 +42,15 @@ const DropdownMenuSubContent = forwardRef<
   const content = (
     <DropdownMenuPrimitive.SubContent
       ref={ref}
-      className={cn("tiptap-dropdown-menu", className)}
+      className={cn(
+        // .tiptap-dropdown-menu styles from editor.css
+        "z-50 outline-none",
+        "origin-(--radix-dropdown-menu-content-transform-origin)",
+        "max-h-(--radix-dropdown-menu-content-available-height)",
+        "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95",
+        "data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:zoom-out-95",
+        className
+      )}
       {...props}
     />
   )
@@ -69,7 +77,15 @@ const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       onCloseAutoFocus={(e) => e.preventDefault()}
-      className={cn("tiptap-dropdown-menu", className)}
+      className={cn(
+        // .tiptap-dropdown-menu styles from editor.css
+        "z-50 outline-none",
+        "origin-(--radix-dropdown-menu-content-transform-origin)",
+        "max-h-(--radix-dropdown-menu-content-available-height)",
+        "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95",
+        "data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:zoom-out-95",
+        className
+      )}
       {...props}
     />
   )

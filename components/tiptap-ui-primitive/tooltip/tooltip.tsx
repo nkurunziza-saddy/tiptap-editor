@@ -28,6 +28,7 @@ import {
   type ReferenceType,
   FloatingDelayGroup,
 } from "@floating-ui/react"
+import { cn } from "@/lib/utils"
 
 
 interface TooltipProviderProps {
@@ -217,8 +218,20 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           ...context.floatingStyles,
           ...style,
         }}
+        className={cn(
+          // .tiptap-tooltip styles from editor.css
+          "z-200 overflow-hidden",
+          "rounded-(--tt-radius-md)",
+          "bg-(--tt-gray-light-900) dark:bg-(--white)",
+          "px-2 py-1.5",
+          "text-xs font-medium",
+          "text-(--white) dark:text-(--tt-gray-light-600)",
+          "shadow-md text-center",
+          // kbd styling
+          "[&_kbd]:inline-block [&_kbd]:align-baseline [&_kbd]:capitalize",
+          "[&_kbd]:text-(--tt-gray-dark-a-400) dark:[&_kbd]:text-(--tt-gray-light-a-400)"
+        )}
         {...context.getFloatingProps(props)}
-        className="tiptap-tooltip"
       >
         {children}
       </div>

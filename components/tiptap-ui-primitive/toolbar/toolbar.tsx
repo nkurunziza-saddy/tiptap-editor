@@ -2,7 +2,7 @@
 
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { Separator } from "@/components/tiptap-ui-primitive/separator"
-import { cn } from "@/lib/tiptap-utils"
+import { cn } from "@/lib/utils"
 import { useMenuNavigation } from "@/hooks/use-menu-navigation"
 import { useComposedRef } from "@/hooks/use-composed-ref"
 
@@ -91,11 +91,11 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
         aria-label="toolbar"
         data-variant={variant}
         className={cn(
-          "tiptap-toolbar flex items-center gap-1",
+          "flex items-center gap-1",
           variant === "fixed" && 
-            "sticky top-0 z-10 w-full min-h-[2.75rem] bg-[var(--white)] dark:bg-[var(--black)] border-b border-[var(--tt-gray-light-a-100)] dark:border-[var(--tt-gray-dark-a-50)] px-2 overflow-x-auto scrollbar-hide",
+            "sticky top-0 z-10 w-full min-h-[2.75rem] bg-(--white) dark:bg-(--black) border-b border-(--tt-gray-light-a-100) dark:border-(--tt-gray-dark-a-50) px-2 overflow-x-auto scrollbar-hide",
           variant === "floating" && 
-            "p-0.5 rounded-lg border shadow-md bg-[var(--white)] dark:bg-[var(--black)] border-[var(--tt-gray-light-a-100)] dark:border-[var(--tt-gray-dark-a-50)]",
+            "p-0.5 rounded-lg border shadow-md bg-(--white) dark:bg-(--black) border-(--tt-gray-light-a-100) dark:border-(--tt-gray-dark-a-50)",
           className
         )}
         {...props}
@@ -113,7 +113,7 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
       ref={ref}
       role="group"
       className={cn(
-        "tiptap-toolbar-group flex items-center gap-0.5 empty:hidden",
+        "flex items-center gap-0.5 empty:hidden",
         className
       )}
       {...props}

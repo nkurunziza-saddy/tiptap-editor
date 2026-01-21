@@ -13,19 +13,19 @@ import { BanIcon } from "@/components/tiptap-icons/ban-icon"
 import { HighlighterIcon } from "@/components/tiptap-icons/highlighter-icon"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button, ButtonGroup } from "@/components/tiptap-ui-primitive/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/components/tiptap-ui-primitive/popover"
-import { Separator } from "@/components/tiptap-ui-primitive/separator"
+} from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator"
 import {
   Card,
-  CardBody,
+  CardContent,
   CardItemGroup,
-} from "@/components/tiptap-ui-primitive/card"
+} from "@/components/ui/card"
 
 // --- Tiptap UI ---
 import type {
@@ -37,6 +37,7 @@ import {
   pickHighlightColorsByValue,
   useColorHighlight,
 } from "@/components/tiptap-ui/color-highlight-button"
+import { cn } from "@/lib/utils"
 
 export interface ColorHighlightPopoverContentProps {
   /**
@@ -69,14 +70,14 @@ export const ColorHighlightPopoverButton = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <Button
     type="button"
-    className={className}
+    className={cn(className)}
     data-style="ghost"
     data-appearance="default"
     role="button"
     tabIndex={-1}
     aria-label="Highlight text"
-    tooltip="Highlight"
-    ref={ref}
+    title="Highlight"
+   
     {...props}
   >
     {children ?? <HighlighterIcon className="tiptap-button-icon" />}
@@ -126,7 +127,7 @@ export function ColorHighlightPopoverContent({
       tabIndex={0}
       style={isMobile ? { boxShadow: "none", border: 0 } : {}}
     >
-      <CardBody style={isMobile ? { padding: 0 } : {}}>
+      <CardContent style={isMobile ? { padding: 0 } : {}}>
         <CardItemGroup orientation="horizontal">
           <ButtonGroup orientation="horizontal">
             {colors.map((color, index) => (
@@ -134,7 +135,7 @@ export function ColorHighlightPopoverContent({
                 key={color.value}
                 editor={editor}
                 highlightColor={color.value}
-                tooltip={color.label}
+                title={color.label}
                 aria-label={`${color.label} highlight color`}
                 tabIndex={index === selectedIndex ? 0 : -1}
                 data-highlighted={selectedIndex === index}
@@ -146,7 +147,7 @@ export function ColorHighlightPopoverContent({
             <Button
               onClick={handleRemoveHighlight}
               aria-label="Remove highlight"
-              tooltip="Remove highlight"
+              title="Remove highlight"
               tabIndex={selectedIndex === colors.length ? 0 : -1}
               type="button"
               role="menuitem"
@@ -157,7 +158,7 @@ export function ColorHighlightPopoverContent({
             </Button>
           </ButtonGroup>
         </CardItemGroup>
-      </CardBody>
+      </CardContent>
     </Card>
   )
 }
@@ -195,7 +196,7 @@ export function ColorHighlightPopover({
           data-disabled={!canColorHighlight}
           aria-pressed={isActive}
           aria-label={label}
-          tooltip={label}
+          title={label}
           {...props}
         >
           <Icon className="tiptap-button-icon" />

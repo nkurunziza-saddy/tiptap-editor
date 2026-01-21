@@ -16,9 +16,8 @@ import {
 } from "@/components/tiptap-ui/color-highlight-button"
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/tiptap-ui-primitive/button"
-import { Button } from "@/components/tiptap-ui-primitive/button"
-import { Badge } from "@/components/tiptap-ui-primitive/badge"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export interface ColorHighlightButtonProps
   extends Omit<ButtonProps, "type">,
@@ -140,11 +139,10 @@ export const ColorHighlightButton = forwardRef<
         data-disabled={!canColorHighlight}
         aria-label={label}
         aria-pressed={isActive}
-        tooltip={label}
+        title={label}
         onClick={handleClick}
         style={buttonStyle}
         {...buttonProps}
-        ref={ref}
       >
         {children ?? (
           <>

@@ -1,7 +1,7 @@
 "use client"
 
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { cn } from "@/lib/tiptap-utils"
+import { cn } from "@/lib/utils"
 
 
 function Popover({
@@ -27,7 +27,15 @@ function PopoverContent({
       <PopoverPrimitive.Content
         align={align}
         sideOffset={sideOffset}
-        className={cn("tiptap-popover", className)}
+        className={cn(
+          // .tiptap-popover styles from editor.css
+          "z-50 outline-none",
+          "origin-(--radix-popover-content-transform-origin)",
+          "max-h-(--radix-popover-content-available-height)",
+          "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:zoom-out-95",
+          className
+        )}
         {...props}
       />
     </PopoverPrimitive.Portal>
