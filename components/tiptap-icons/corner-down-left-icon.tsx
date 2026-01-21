@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { ArrowElbowDownLeft } from "@phosphor-icons/react"
+import { ArrowElbowDownLeftIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const CornerDownLeftIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <ArrowElbowDownLeft className={className} size={size} weight={weight} {...props} />
+  return <ArrowElbowDownLeftIcon className={className} size={size} weight={weight} {...props} />
 })
 
 CornerDownLeftIcon.displayName = "CornerDownLeftIcon"

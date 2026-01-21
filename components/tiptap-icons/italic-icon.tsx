@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextItalic } from "@phosphor-icons/react"
+import { TextItalicIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const ItalicIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextItalic className={className} size={size} weight={weight} {...props} />
+  return <TextItalicIcon className={className} size={size} weight={weight} {...props} />
 })
 
 ItalicIcon.displayName = "ItalicIcon"

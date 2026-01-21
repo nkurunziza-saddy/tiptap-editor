@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { ImageSquare } from "@phosphor-icons/react"
+import { ImageSquareIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const ImagePlusIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <ImageSquare className={className} size={size} weight={weight} {...props} />
+  return <ImageSquareIcon className={className} size={size} weight={weight} {...props} />
 })
 
 ImagePlusIcon.displayName = "ImagePlusIcon"

@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextUnderline } from "@phosphor-icons/react"
+import { TextUnderlineIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const UnderlineIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextUnderline className={className} size={size} weight={weight} {...props} />
+  return <TextUnderlineIcon className={className} size={size} weight={weight} {...props} />
 })
 
 UnderlineIcon.displayName = "UnderlineIcon"

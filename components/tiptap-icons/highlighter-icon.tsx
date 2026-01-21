@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { Highlighter } from "@phosphor-icons/react"
+import { HighlighterIcon as HighlighterIconPhosphor } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const HighlighterIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <Highlighter className={className} size={size} weight={weight} {...props} />
+  return <HighlighterIconPhosphor className={className} size={size} weight={weight} {...props} />
 })
 
 HighlighterIcon.displayName = "HighlighterIcon"

@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextH } from "@phosphor-icons/react"
+import { TextHIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const HeadingIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextH className={className} size={size} weight={weight} {...props} />
+  return <TextHIcon className={className} size={size} weight={weight} {...props} />
 })
 
 HeadingIcon.displayName = "HeadingIcon"

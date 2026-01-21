@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { Quotes } from "@phosphor-icons/react"
+import { QuotesIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const BlockquoteIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <Quotes className={className} size={size} weight={weight} {...props} />
+  return <QuotesIcon className={className} size={size} weight={weight} {...props} />
 })
 
 BlockquoteIcon.displayName = "BlockquoteIcon"

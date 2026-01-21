@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { Prohibit } from "@phosphor-icons/react"
+import { ProhibitIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const BanIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <Prohibit className={className} size={size} weight={weight} {...props} />
+  return <ProhibitIcon className={className} size={size} weight={weight} {...props} />
 })
 
 BanIcon.displayName = "BanIcon"

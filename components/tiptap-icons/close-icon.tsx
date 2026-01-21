@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { X } from "@phosphor-icons/react"
+import { XIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const CloseIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <X className={className} size={size} weight={weight} {...props} />
+  return <XIcon className={className} size={size} weight={weight} {...props} />
 })
 
 CloseIcon.displayName = "CloseIcon"

@@ -46,7 +46,6 @@ import {
 import { MarkButton } from "@/components/tiptap-ui/mark-button"
 import { TextAlignButton } from "@/components/tiptap-ui/text-align-button"
 import { UndoRedoButton } from "@/components/tiptap-ui/undo-redo-button"
-
 // --- Icons ---
 import { ArrowLeftIcon } from "@/components/tiptap-icons/arrow-left-icon"
 import { HighlighterIcon } from "@/components/tiptap-icons/highlighter-icon"
@@ -219,6 +218,9 @@ export function SimpleEditor() {
       }),
     ],
     content,
+    onUpdate: ({ editor }) => {
+      console.log(editor.getJSON())
+    },
   })
 
   const rect = useCursorVisibility({

@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextSubscript } from "@phosphor-icons/react"
+import { TextSubscriptIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const SubscriptIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextSubscript className={className} size={size} weight={weight} {...props} />
+  return <TextSubscriptIcon className={className} size={size} weight={weight} {...props} />
 })
 
 SubscriptIcon.displayName = "SubscriptIcon"

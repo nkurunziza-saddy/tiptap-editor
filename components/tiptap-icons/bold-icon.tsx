@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextB } from "@phosphor-icons/react"
+import { TextBIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const BoldIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextB className={className} size={size} weight={weight} {...props} />
+  return <TextBIcon className={className} size={size} weight={weight} {...props} />
 })
 
 BoldIcon.displayName = "BoldIcon"

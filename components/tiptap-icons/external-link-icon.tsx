@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { ArrowSquareOut } from "@phosphor-icons/react"
+import { ArrowSquareOutIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const ExternalLinkIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <ArrowSquareOut className={className} size={size} weight={weight} {...props} />
+  return <ArrowSquareOutIcon className={className} size={size} weight={weight} {...props} />
 })
 
 ExternalLinkIcon.displayName = "ExternalLinkIcon"

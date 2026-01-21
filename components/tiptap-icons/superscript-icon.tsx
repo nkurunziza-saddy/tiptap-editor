@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextSuperscript } from "@phosphor-icons/react"
+import { TextSuperscriptIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const SuperscriptIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextSuperscript className={className} size={size} weight={weight} {...props} />
+  return <TextSuperscriptIcon className={className} size={size} weight={weight} {...props} />
 })
 
 SuperscriptIcon.displayName = "SuperscriptIcon"

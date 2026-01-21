@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextAlignLeft } from "@phosphor-icons/react"
+import { TextAlignLeftIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const AlignLeftIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextAlignLeft className={className} size={size} weight={weight} {...props} />
+  return <TextAlignLeftIcon className={className} size={size} weight={weight} {...props} />
 })
 
 AlignLeftIcon.displayName = "AlignLeftIcon"

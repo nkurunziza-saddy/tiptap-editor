@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { TextStrikethrough } from "@phosphor-icons/react"
+import { TextStrikethroughIcon } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const StrikeIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <TextStrikethrough className={className} size={size} weight={weight} {...props} />
+  return <TextStrikethroughIcon className={className} size={size} weight={weight} {...props} />
 })
 
 StrikeIcon.displayName = "StrikeIcon"

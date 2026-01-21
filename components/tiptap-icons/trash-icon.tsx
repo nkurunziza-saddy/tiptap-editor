@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { Trash } from "@phosphor-icons/react"
+import { TrashIcon as TrashIconPhosphor } from "@phosphor-icons/react"
 
 type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
   size?: number | string
@@ -9,7 +9,7 @@ type IconProps = React.ComponentPropsWithoutRef<"svg"> & {
 }
 
 export const TrashIcon = memo(({ className, size = 24, weight = "regular", ...props }: IconProps) => {
-  return <Trash className={className} size={size} weight={weight} {...props} />
+  return <TrashIconPhosphor className={className} size={size} weight={weight} {...props} />
 })
 
 TrashIcon.displayName = "TrashIcon"
