@@ -12,10 +12,6 @@ import {
 // --- Lib ---
 import { cn, parseShortcutKeys } from "@/lib/tiptap-utils"
 
-import "@/components/tiptap-ui-primitive/button/button-colors.scss"
-import "@/components/tiptap-ui-primitive/button/button-group.scss"
-import "@/components/tiptap-ui-primitive/button/button.scss"
-
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
@@ -59,10 +55,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [shortcutKeys]
     )
 
+    const buttonClasses = cn(
+      // Base styles
+      "tiptap-button",
+      "text-sm font-medium leading-[1.15]",
+      "h-8 min-w-8 p-2 gap-1",
+      "flex items-center justify-center",
+      "border-none rounded-lg",
+      "transition-[background,color,opacity] duration-200",
+      "outline-none",
+      // Colors via CSS variables (defined in editor.css)
+      "bg-[var(--tt-button-default-bg-color)]",
+      "text-[var(--tt-button-default-text-color)]",
+      // Hover state
+      "hover:bg-[var(--tt-button-hover-bg-color)]",
+      "hover:text-[var(--tt-button-hover-text-color)]",
+      // Focus visible
+      "focus-visible:outline-none",
+      // Data attribute states handled via CSS in editor.css
+      // Disabled
+      "disabled:bg-[var(--tt-button-disabled-bg-color)]",
+      "disabled:text-[var(--tt-button-disabled-text-color)]",
+      className
+    )
+
     if (!tooltip || !showTooltip) {
       return (
         <button
-          className={cn("tiptap-button", className)}
+          className={buttonClasses}
           ref={ref}
           aria-label={ariaLabel}
           {...props}
@@ -75,7 +95,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Tooltip delay={200}>
         <TooltipTrigger
-          className={cn("tiptap-button", className)}
+          className={buttonClasses}
           ref={ref}
           aria-label={ariaLabel}
           {...props}
@@ -102,7 +122,12 @@ export const ButtonGroup = forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("tiptap-button-group", className)}
+      className={cn(
+        "tiptap-button-group",
+        "flex gap-0.5",
+        orientation === "vertical" ? "flex-col items-stretch" : "flex-row items-center",
+        className
+      )}
       data-orientation={orientation}
       role="group"
       {...props}

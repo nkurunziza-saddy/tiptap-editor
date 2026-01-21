@@ -2,7 +2,6 @@
 
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { Separator } from "@/components/tiptap-ui-primitive/separator"
-import "@/components/tiptap-ui-primitive/toolbar/toolbar.scss"
 import { cn } from "@/lib/tiptap-utils"
 import { useMenuNavigation } from "@/hooks/use-menu-navigation"
 import { useComposedRef } from "@/hooks/use-composed-ref"
@@ -91,7 +90,14 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
         role="toolbar"
         aria-label="toolbar"
         data-variant={variant}
-        className={cn("tiptap-toolbar", className)}
+        className={cn(
+          "tiptap-toolbar flex items-center gap-1",
+          variant === "fixed" && 
+            "sticky top-0 z-10 w-full min-h-[2.75rem] bg-[var(--white)] dark:bg-[var(--black)] border-b border-[var(--tt-gray-light-a-100)] dark:border-[var(--tt-gray-dark-a-50)] px-2 overflow-x-auto scrollbar-hide",
+          variant === "floating" && 
+            "p-0.5 rounded-lg border shadow-md bg-[var(--white)] dark:bg-[var(--black)] border-[var(--tt-gray-light-a-100)] dark:border-[var(--tt-gray-dark-a-50)]",
+          className
+        )}
         {...props}
       >
         {children}
@@ -106,7 +112,10 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
     <div
       ref={ref}
       role="group"
-      className={cn("tiptap-toolbar-group", className)}
+      className={cn(
+        "tiptap-toolbar-group flex items-center gap-0.5 empty:hidden",
+        className
+      )}
       {...props}
     >
       {children}
@@ -117,7 +126,13 @@ ToolbarGroup.displayName = "ToolbarGroup"
 
 export const ToolbarSeparator = forwardRef<HTMLDivElement, BaseProps>(
   ({ ...props }, ref) => (
-    <Separator ref={ref} orientation="vertical" decorative {...props} />
+    <Separator 
+      ref={ref} 
+      orientation="vertical" 
+      decorative 
+      className="mx-1 h-4"
+      {...props} 
+    />
   )
 )
 ToolbarSeparator.displayName = "ToolbarSeparator"
