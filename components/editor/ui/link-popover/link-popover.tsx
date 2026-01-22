@@ -1,0 +1,257 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import type { Editor } from "@tiptap/react";
+
+// --- Hooks ---
+import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
+import { useEditor } from "@/hooks/use-editor";
+
+// --- Icons ---
+import { CornerDownLeftIcon } from "@/components/editor/icons/corner-down-left-icon";
+import { ExternalLinkIcon } from "@/components/editor/icons/external-link-icon";
+import { LinkIcon } from "@/components/editor/icons/link-icon";
+import { TrashIcon } from "@/components/editor/icons/trash-icon";
+
+// --- Tiptap UI ---
+import type { UseLinkPopoverConfig } from "./use-link-popover";
+import { useLinkPopover } from "./use-link-popover";
+
+// --- UI Primitives ---
+import type { ButtonProps } from "@/components/editor/primitives/button";
+import { Button, ButtonGroup } from "@/components/editor/primitives/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/editor/primitives/popover";
+import { Separator } from "@/components/editor/primitives/separator";
+import {
+  Card,
+  CardBody,
+  CardItemGroup,
+} from "@/components/editor/primitives/card";
+import { Input, InputGroup } from "@/components/editor/primitives/input";
+
+export interface LinkMainProps {
+  url: string;
+  setUrl: React.Dispatch<React.SetStateAction<string | null>>;
+  setLink: () => void;
+  removeLink: () => void;
+  openLink: () => void;
+  isActive: boolean;
+}
+
+export interface LinkPopoverProps
+  extends Omit<ButtonProps, "type">, UseLinkPopoverConfig {
+  onOpenChange?: (isOpen: boolean) => void;
+  autoOpenOnLinkActive?: boolean;
+}
+
+export function LinkButton({
+  className,
+  children,
+  ref,
+  ...props
+}: ButtonProps) {
+  return (
+    <Button
+      type="button"
+      className={className}
+      data-style="ghost"
+      role="button"
+      tabIndex={-1}
+      aria-label="Link"
+      tooltip="Link"
+      ref={ref}
+      {...props}
+    >
+      {children || <LinkIcon className="size-4 shrink-0" />}
+    </Button>
+  );
+}
+
+function LinkMain({
+  url,
+  setUrl,
+  setLink,
+  removeLink,
+  openLink,
+  isActive,
+}: LinkMainProps) {
+  const isMobile = useIsBreakpoint();
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      setLink();
+    }
+  };
+
+  return (
+    <Card
+      style={{
+        ...(isMobile ? { boxShadow: "none", border: 0 } : {}),
+      }}
+    >
+      <CardBody
+        style={{
+          ...(isMobile ? { padding: 0 } : {}),
+        }}
+      >
+        <CardItemGroup orientation="horizontal">
+          <InputGroup>
+            <Input
+              type="url"
+              placeholder="Paste a link..."
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoFocus
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
+          </InputGroup>
+
+          <ButtonGroup orientation="horizontal">
+            <Button
+              type="button"
+              onClick={setLink}
+              title="Apply link"
+              disabled={!url && !isActive}
+              data-style="ghost"
+            >
+              <CornerDownLeftIcon className="size-4 shrink-0" />
+            </Button>
+          </ButtonGroup>
+
+          <Separator />
+
+          <ButtonGroup orientation="horizontal">
+            <Button
+              type="button"
+              onClick={openLink}
+              title="Open in new window"
+              disabled={!url && !isActive}
+              data-style="ghost"
+            >
+              <ExternalLinkIcon className="size-4 shrink-0" />
+            </Button>
+
+            <Button
+              type="button"
+              onClick={removeLink}
+              title="Remove link"
+              disabled={!url && !isActive}
+              data-style="ghost"
+            >
+              <TrashIcon className="size-4 shrink-0" />
+            </Button>
+          </ButtonGroup>
+        </CardItemGroup>
+      </CardBody>
+    </Card>
+  );
+}
+
+export function LinkContent({ editor }: { editor?: Editor | null }) {
+  const linkPopover = useLinkPopover({ editor });
+  return <LinkMain {...linkPopover} />;
+}
+
+export function LinkPopover({
+  editor: providedEditor,
+  hideWhenUnavailable = false,
+  onSetLink,
+  onOpenChange,
+  autoOpenOnLinkActive = true,
+  onClick,
+  children,
+  ref,
+  ...buttonProps
+}: LinkPopoverProps) {
+  const { editor } = useEditor(providedEditor);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const {
+    isVisible,
+    canSet,
+    isActive,
+    url,
+    setUrl,
+    setLink,
+    removeLink,
+    openLink,
+    label,
+    Icon,
+  } = useLinkPopover({
+    editor,
+    hideWhenUnavailable,
+    onSetLink,
+  });
+
+  const handleOnOpenChange = useCallback(
+    (nextIsOpen: boolean) => {
+      setIsOpen(nextIsOpen);
+      onOpenChange?.(nextIsOpen);
+    },
+    [onOpenChange],
+  );
+
+  const handleSetLink = useCallback(() => {
+    setLink();
+    setIsOpen(false);
+  }, [setLink]);
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event);
+      if (event.defaultPrevented) return;
+      setIsOpen(!isOpen);
+    },
+    [onClick, isOpen],
+  );
+
+  useEffect(() => {
+    if (autoOpenOnLinkActive && isActive) {
+      setIsOpen(true);
+    }
+  }, [autoOpenOnLinkActive, isActive]);
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <Popover open={isOpen} onOpenChange={handleOnOpenChange}>
+      <PopoverTrigger asChild>
+        <LinkButton
+          disabled={!canSet}
+          data-active-state={isActive ? "on" : "off"}
+          data-disabled={!canSet}
+          aria-label={label}
+          aria-pressed={isActive}
+          onClick={handleClick}
+          {...buttonProps}
+          ref={ref}
+        >
+          {children ?? <Icon className="size-4 shrink-0" />}
+        </LinkButton>
+      </PopoverTrigger>
+
+      <PopoverContent>
+        <LinkMain
+          url={url}
+          setUrl={setUrl}
+          setLink={handleSetLink}
+          removeLink={removeLink}
+          openLink={openLink}
+          isActive={isActive}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export default LinkPopover;

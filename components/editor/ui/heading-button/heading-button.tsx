@@ -1,0 +1,104 @@
+"use client";
+
+import { useCallback } from "react";
+
+// --- Lib ---
+import { parseShortcutKeys } from "@/lib/utils";
+
+// --- Tiptap UI ---
+import type { Level, UseHeadingConfig } from "./use-heading";
+import { HEADING_SHORTCUT_KEYS, useHeading } from "./use-heading";
+
+// --- UI Primitives ---
+import type { ButtonProps } from "@/components/editor/primitives/button";
+import { Button } from "@/components/editor/primitives/button";
+import { Badge } from "@/components/editor/primitives/badge";
+import { useEditor } from "@/hooks/use-editor";
+
+export interface HeadingButtonProps
+  extends Omit<ButtonProps, "type">, UseHeadingConfig {
+  text?: string;
+  showShortcut?: boolean;
+}
+
+export function HeadingShortcutBadge({
+  level,
+  shortcutKeys = HEADING_SHORTCUT_KEYS[level],
+}: {
+  level: Level;
+  shortcutKeys?: string;
+}) {
+  return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
+}
+
+export function HeadingButton({
+  editor: providedEditor,
+  level,
+  text,
+  hideWhenUnavailable = false,
+  onToggled,
+  showShortcut = false,
+  onClick,
+  children,
+  ref,
+  ...buttonProps
+}: HeadingButtonProps) {
+  const { editor } = useEditor(providedEditor);
+  const {
+    isVisible,
+    canToggle,
+    isActive,
+    handleToggle,
+    label,
+    Icon,
+    shortcutKeys,
+  } = useHeading({
+    editor,
+    level,
+    hideWhenUnavailable,
+    onToggled,
+  });
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event);
+      if (event.defaultPrevented) return;
+      handleToggle();
+    },
+    [handleToggle, onClick],
+  );
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <Button
+      type="button"
+      data-style="ghost"
+      data-active-state={isActive ? "on" : "off"}
+      role="button"
+      tabIndex={-1}
+      disabled={!canToggle}
+      data-disabled={!canToggle}
+      aria-label={label}
+      aria-pressed={isActive}
+      tooltip={label}
+      onClick={handleClick}
+      {...buttonProps}
+      ref={ref}
+    >
+      {children ?? (
+        <>
+          <Icon className="size-4 shrink-0" />
+          {text && (
+            <span className="px-0.5 grow text-left leading-6">{text}</span>
+          )}
+          {showShortcut && (
+            <HeadingShortcutBadge level={level} shortcutKeys={shortcutKeys} />
+          )}
+        </>
+      )}
+    </Button>
+  );
+}
