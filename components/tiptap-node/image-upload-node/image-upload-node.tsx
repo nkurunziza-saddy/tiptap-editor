@@ -3,8 +3,9 @@
 import { useRef, useState } from "react"
 import type { NodeViewProps } from "@tiptap/react"
 import { NodeViewWrapper } from "@tiptap/react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/tiptap-ui-primitive/button"
 import { CloseIcon } from "@/components/tiptap-icons/close-icon"
+import "@/components/tiptap-node/image-upload-node/image-upload-node.scss"
 import { focusNextNode, isValidPosition } from "@/lib/tiptap-utils"
 
 export interface FileItem {
@@ -398,7 +399,6 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               e.stopPropagation()
               onRemove()
             }}
-      
           >
             <CloseIcon className="tiptap-button-icon" />
           </Button>

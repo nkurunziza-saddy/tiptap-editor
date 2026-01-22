@@ -1,124 +1,105 @@
-"use client"
+"use client";
 
-import { forwardRef, useCallback } from "react"
+import { useCallback } from "react";
 
 // --- Hooks ---
-import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
+import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 
 // --- Lib ---
-import { parseShortcutKeys } from "@/lib/tiptap-utils"
+import { parseShortcutKeys } from "@/lib/tiptap-utils";
 
 // --- Tiptap UI ---
-import type { UseCodeBlockConfig } from "@/components/tiptap-ui/code-block-button"
+import type { UseCodeBlockConfig } from "@/components/tiptap-ui/code-block-button";
 import {
   CODE_BLOCK_SHORTCUT_KEY,
   useCodeBlock,
-} from "@/components/tiptap-ui/code-block-button"
+} from "@/components/tiptap-ui/code-block-button";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "@/components/ui/button"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import type { ButtonProps } from "@/components/tiptap-ui-primitive/button";
+import { Button } from "@/components/tiptap-ui-primitive/button";
+import { Badge } from "@/components/tiptap-ui-primitive/badge";
 
 export interface CodeBlockButtonProps
-  extends Omit<ButtonProps, "type">,
-    UseCodeBlockConfig {
-  /**
-   * Optional text to display alongside the icon.
-   */
-  text?: string
-  /**
-   * Optional show shortcut keys in the button.
-   * @default false
-   */
-  showShortcut?: boolean
+  extends Omit<ButtonProps, "type">, UseCodeBlockConfig {
+  text?: string;
+  showShortcut?: boolean;
 }
 
 export function CodeBlockShortcutBadge({
   shortcutKeys = CODE_BLOCK_SHORTCUT_KEY,
 }: {
-  shortcutKeys?: string
+  shortcutKeys?: string;
 }) {
-  return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>
+  return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
-/**
- * Button component for toggling code block in a Tiptap editor.
- *
- * For custom button implementations, use the `useCodeBlock` hook instead.
- */
-export const CodeBlockButton = forwardRef<
-  HTMLButtonElement,
-  CodeBlockButtonProps
->(
-  (
-    {
-      editor: providedEditor,
-      text,
-      hideWhenUnavailable = false,
-      onToggled,
-      showShortcut = false,
-      onClick,
-      children,
-      ...buttonProps
+export function CodeBlockButton({
+  editor: providedEditor,
+  text,
+  hideWhenUnavailable = false,
+  onToggled,
+  showShortcut = false,
+  onClick,
+  children,
+  ref,
+  ...buttonProps
+}: CodeBlockButtonProps) {
+  const { editor } = useTiptapEditor(providedEditor);
+  const {
+    isVisible,
+    canToggle,
+    isActive,
+    handleToggle,
+    label,
+    shortcutKeys,
+    Icon,
+  } = useCodeBlock({
+    editor,
+    hideWhenUnavailable,
+    onToggled,
+  });
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event);
+      if (event.defaultPrevented) return;
+      handleToggle();
     },
-    ref
-  ) => {
-    const { editor } = useTiptapEditor(providedEditor)
-    const {
-      isVisible,
-      canToggle,
-      isActive,
-      handleToggle,
-      label,
-      shortcutKeys,
-      Icon,
-    } = useCodeBlock({
-      editor,
-      hideWhenUnavailable,
-      onToggled,
-    })
+    [handleToggle, onClick],
+  );
 
-    const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        onClick?.(event)
-        if (event.defaultPrevented) return
-        handleToggle()
-      },
-      [handleToggle, onClick]
-    )
-
-    if (!isVisible) {
-      return null
-    }
-
-    return (
-      <Button
-        type="button"
-        data-style="ghost"
-        data-active-state={isActive ? "on" : "off"}
-        role="button"
-        disabled={!canToggle}
-        data-disabled={!canToggle}
-        tabIndex={-1}
-        aria-label={label}
-        aria-pressed={isActive}
-        title="Code Block"
-        onClick={handleClick}
-        {...buttonProps}
-      >
-        {children ?? (
-          <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
-            {showShortcut && (
-              <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
-            )}
-          </>
-        )}
-      </Button>
-    )
+  if (!isVisible) {
+    return null;
   }
-)
 
-CodeBlockButton.displayName = "CodeBlockButton"
+  return (
+    <Button
+      type="button"
+      data-style="ghost"
+      data-active-state={isActive ? "on" : "off"}
+      role="button"
+      disabled={!canToggle}
+      data-disabled={!canToggle}
+      tabIndex={-1}
+      aria-label={label}
+      aria-pressed={isActive}
+      tooltip="Code Block"
+      onClick={handleClick}
+      {...buttonProps}
+      ref={ref}
+    >
+      {children ?? (
+        <>
+          <Icon className="size-4 shrink-0" />
+          {text && (
+            <span className="px-0.5 grow text-left leading-6">{text}</span>
+          )}
+          {showShortcut && (
+            <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
+          )}
+        </>
+      )}
+    </Button>
+  );
+}

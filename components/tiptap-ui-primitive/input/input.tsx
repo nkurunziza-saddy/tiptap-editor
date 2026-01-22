@@ -1,39 +1,49 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/tiptap-utils";
 
+const inputStyles = {
+  base: [
+    "block w-full h-8",
+    "text-sm font-normal leading-relaxed",
+    "px-2 py-1.5",
+    "rounded-md",
+    "bg-transparent",
+    "appearance-none outline-none",
+    "placeholder:text-[var(--tiptap-input-placeholder)]",
+  ].join(" "),
+  clamp: "min-w-48 pr-0 truncate focus:overflow-visible focus:text-clip",
+  group: "relative flex flex-wrap items-stretch",
+};
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+interface InputProps extends React.ComponentProps<"input"> {
+  ref?: React.Ref<HTMLInputElement>;
+}
+
+export function Input({ className, type, ref, ...props }: InputProps) {
   return (
     <input
       type={type}
-      className={cn(
-       "bg-transparent border-none   aria-invalid:ring-destructive aria-invalid:border-destructive h-8 border rounded-xl px-2 py-1 text-base transition-colors md:text-sm placeholder:text-muted-foreground w-full min-w-0 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-    
-        className
-      )}
+      className={cn(inputStyles.base, className)}
+      ref={ref}
       {...props}
     />
-  )
+  );
 }
 
-function InputGroup({
+interface InputGroupProps extends React.ComponentProps<"div"> {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+export function InputGroup({
   className,
   children,
+  ref,
   ...props
-}: React.ComponentProps<"div">) {
+}: InputGroupProps) {
   return (
-    <div
-      className={cn(
-        "relative flex flex-wrap items-stretch",
-        className
-      )}
-      {...props}
-    >
+    <div className={cn(inputStyles.group, className)} ref={ref} {...props}>
       {children}
     </div>
-  )
+  );
 }
-
-export { Input, InputGroup }
-

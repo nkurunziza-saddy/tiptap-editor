@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
 import {
   cloneElement,
   createContext,
-  forwardRef,
   isValidElement,
   useContext,
   useMemo,
   useState,
   version,
-} from "react"
+} from "react";
 import {
   useFloating,
   autoUpdate,
@@ -27,44 +26,66 @@ import {
   type UseFloatingReturn,
   type ReferenceType,
   FloatingDelayGroup,
-} from "@floating-ui/react"
-import { cn } from "@/lib/utils"
+} from "@floating-ui/react";
 
+const tooltipStyles = {
+  base: [
+    "z-[200] overflow-hidden",
+    "rounded-md",
+    "bg-[var(--tt-tooltip-bg)]",
+    "px-2 py-1.5",
+    "text-xs font-medium",
+    "text-[var(--tt-tooltip-text)]",
+    "shadow-md",
+    "text-center",
+  ].join(" "),
+  kbd: [
+    "inline-block text-center align-baseline",
+    "font-sans capitalize",
+    "text-[var(--tt-kbd)]",
+  ].join(" "),
+};
 
 interface TooltipProviderProps {
-  children: React.ReactNode
-  initialOpen?: boolean
-  placement?: Placement
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-  delay?: number
-  closeDelay?: number
-  timeout?: number
-  useDelayGroup?: boolean
+  children: React.ReactNode;
+  initialOpen?: boolean;
+  placement?: Placement;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  delay?: number;
+  closeDelay?: number;
+  timeout?: number;
+  useDelayGroup?: boolean;
 }
 
-interface TooltipTriggerProps
-  extends Omit<React.HTMLProps<HTMLElement>, "ref"> {
-  asChild?: boolean
-  children: React.ReactNode
+interface TooltipTriggerProps extends Omit<
+  React.HTMLProps<HTMLElement>,
+  "ref"
+> {
+  asChild?: boolean;
+  children: React.ReactNode;
+  ref?: React.Ref<HTMLElement>;
 }
 
-interface TooltipContentProps
-  extends Omit<React.HTMLProps<HTMLDivElement>, "ref"> {
-  children?: React.ReactNode
-  portal?: boolean
-  portalProps?: Omit<React.ComponentProps<typeof FloatingPortal>, "children">
+interface TooltipContentProps extends Omit<
+  React.HTMLProps<HTMLDivElement>,
+  "ref"
+> {
+  children?: React.ReactNode;
+  portal?: boolean;
+  portalProps?: Omit<React.ComponentProps<typeof FloatingPortal>, "children">;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 interface TooltipContextValue extends UseFloatingReturn<ReferenceType> {
-  open: boolean
-  setOpen: (open: boolean) => void
+  open: boolean;
+  setOpen: (open: boolean) => void;
   getReferenceProps: (
-    userProps?: React.HTMLProps<HTMLElement>
-  ) => Record<string, unknown>
+    userProps?: React.HTMLProps<HTMLElement>,
+  ) => Record<string, unknown>;
   getFloatingProps: (
-    userProps?: React.HTMLProps<HTMLDivElement>
-  ) => Record<string, unknown>
+    userProps?: React.HTMLProps<HTMLDivElement>,
+  ) => Record<string, unknown>;
 }
 
 function useTooltip({
@@ -75,10 +96,11 @@ function useTooltip({
   delay = 600,
   closeDelay = 0,
 }: Omit<TooltipProviderProps, "children"> = {}) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(initialOpen)
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(initialOpen);
 
-  const open = controlledOpen ?? uncontrolledOpen
-  const setOpen = setControlledOpen ?? setUncontrolledOpen
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = setControlledOpen ?? setUncontrolledOpen;
 
   const data = useFloating({
     placement,
@@ -94,9 +116,9 @@ function useTooltip({
       }),
       shift({ padding: 4 }),
     ],
-  })
+  });
 
-  const context = data.context
+  const context = data.context;
 
   const hover = useHover(context, {
     mouseOnly: true,
@@ -106,14 +128,14 @@ function useTooltip({
     delay: {
       close: closeDelay,
     },
-  })
+  });
   const focus = useFocus(context, {
     enabled: controlledOpen == null,
-  })
-  const dismiss = useDismiss(context)
-  const role = useRole(context, { role: "tooltip" })
+  });
+  const dismiss = useDismiss(context);
+  const role = useRole(context, { role: "tooltip" });
 
-  const interactions = useInteractions([hover, focus, dismiss, role])
+  const interactions = useInteractions([hover, focus, dismiss, role]);
 
   return useMemo(
     () => ({
@@ -122,31 +144,33 @@ function useTooltip({
       ...interactions,
       ...data,
     }),
-    [open, setOpen, interactions, data]
-  )
+    [open, setOpen, interactions, data],
+  );
 }
 
-const TooltipContext = createContext<TooltipContextValue | null>(null)
+const TooltipContext = createContext<TooltipContextValue | null>(null);
 
 function useTooltipContext() {
-  const context = useContext(TooltipContext)
+  const context = useContext(TooltipContext);
 
   if (context == null) {
-    throw new Error("Tooltip components must be wrapped in <TooltipProvider />")
+    throw new Error(
+      "Tooltip components must be wrapped in <TooltipProvider />",
+    );
   }
 
-  return context
+  return context;
 }
 
 export function Tooltip({ children, ...props }: TooltipProviderProps) {
-  const tooltip = useTooltip(props)
+  const tooltip = useTooltip(props);
 
   if (!props.useDelayGroup) {
     return (
       <TooltipContext.Provider value={tooltip}>
         {children}
       </TooltipContext.Provider>
-    )
+    );
   }
 
   return (
@@ -158,93 +182,82 @@ export function Tooltip({ children, ...props }: TooltipProviderProps) {
         {children}
       </TooltipContext.Provider>
     </FloatingDelayGroup>
-  )
+  );
 }
 
-export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(
-  function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
-    const context = useTooltipContext()
-    const childrenRef = isValidElement(children)
-      ? parseInt(version, 10) >= 19
-        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (children as { props: { ref?: React.Ref<any> } }).props.ref
-        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (children as any).ref
-      : undefined
-    const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef])
+export function TooltipTrigger({
+  children,
+  asChild = false,
+  ref: propRef,
+  ...props
+}: TooltipTriggerProps) {
+  const context = useTooltipContext();
+  const childrenRef = isValidElement(children)
+    ? parseInt(version, 10) >= 19
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children as { props: { ref?: React.Ref<any> } }).props.ref
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children as any).ref
+    : undefined;
+  const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
-    if (asChild && isValidElement(children)) {
-      const dataAttributes = {
-        "data-tooltip-state": context.open ? "open" : "closed",
-      }
+  if (asChild && isValidElement(children)) {
+    const dataAttributes = {
+      "data-tooltip-state": context.open ? "open" : "closed",
+    };
 
-      return cloneElement(
-        children,
-        context.getReferenceProps({
-          ref,
-          ...props,
-          ...(typeof children.props === "object" ? children.props : {}),
-          ...dataAttributes,
-        })
-      )
-    }
-
-    return (
-      <button
-        ref={ref}
-        data-tooltip-state={context.open ? "open" : "closed"}
-        {...context.getReferenceProps(props)}
-      >
-        {children}
-      </button>
-    )
+    return cloneElement(
+      children,
+      context.getReferenceProps({
+        ref,
+        ...props,
+        ...(typeof children.props === "object" ? children.props : {}),
+        ...dataAttributes,
+      }),
+    );
   }
-)
 
-export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
-  function TooltipContent(
-    { style, children, portal = true, portalProps = {}, ...props },
-    propRef
-  ) {
-    const context = useTooltipContext()
-    const ref = useMergeRefs([context.refs.setFloating, propRef])
+  return (
+    <button
+      ref={ref}
+      data-tooltip-state={context.open ? "open" : "closed"}
+      {...context.getReferenceProps(props)}
+    >
+      {children}
+    </button>
+  );
+}
 
-    if (!context.open) return null
+export function TooltipContent({
+  style,
+  children,
+  portal = true,
+  portalProps = {},
+  ref: propRef,
+  ...props
+}: TooltipContentProps) {
+  const context = useTooltipContext();
+  const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
-    const content = (
-      <div
-        ref={ref}
-        style={{
-          ...context.floatingStyles,
-          ...style,
-        }}
-        className={cn(
-          // .tiptap-tooltip styles from editor.css
-          "z-200 overflow-hidden",
-          "rounded-(--tt-radius-md)",
-          "bg-(--tt-gray-light-900) dark:bg-(--white)",
-          "px-2 py-1.5",
-          "text-xs font-medium",
-          "text-(--white) dark:text-(--tt-gray-light-600)",
-          "shadow-md text-center",
-          // kbd styling
-          "[&_kbd]:inline-block [&_kbd]:align-baseline [&_kbd]:capitalize",
-          "[&_kbd]:text-(--tt-gray-dark-a-400) dark:[&_kbd]:text-(--tt-gray-light-a-400)"
-        )}
-        {...context.getFloatingProps(props)}
-      >
-        {children}
-      </div>
-    )
+  if (!context.open) return null;
 
-    if (portal) {
-      return <FloatingPortal {...portalProps}>{content}</FloatingPortal>
-    }
+  const content = (
+    <div
+      ref={ref}
+      style={{
+        ...context.floatingStyles,
+        ...style,
+      }}
+      {...context.getFloatingProps(props)}
+      className={tooltipStyles.base}
+    >
+      {children}
+    </div>
+  );
 
-    return content
+  if (portal) {
+    return <FloatingPortal {...portalProps}>{content}</FloatingPortal>;
   }
-)
 
-Tooltip.displayName = "Tooltip"
-TooltipTrigger.displayName = "TooltipTrigger"
-TooltipContent.displayName = "TooltipContent"
+  return content;
+}

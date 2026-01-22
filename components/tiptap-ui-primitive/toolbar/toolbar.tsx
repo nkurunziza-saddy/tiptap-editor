@@ -1,43 +1,78 @@
-"use client"
+"use client";
 
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
-import { Separator } from "@/components/tiptap-ui-primitive/separator"
-import { cn } from "@/lib/utils"
-import { useMenuNavigation } from "@/hooks/use-menu-navigation"
-import { useComposedRef } from "@/hooks/use-composed-ref"
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Separator } from "@/components/tiptap-ui-primitive/separator";
+import { cn } from "@/lib/tiptap-utils";
+import { useMenuNavigation } from "@/hooks/use-menu-navigation";
+import { useComposedRef } from "@/hooks/use-composed-ref";
 
-type BaseProps = React.HTMLAttributes<HTMLDivElement>
+type BaseProps = React.HTMLAttributes<HTMLDivElement>;
 
 interface ToolbarProps extends BaseProps {
-  variant?: "floating" | "fixed"
+  variant?: "floating" | "fixed";
+  ref?: React.Ref<HTMLDivElement>;
 }
 
+const toolbarStyles = {
+  base: "flex items-center gap-1",
+  group: "flex items-center gap-0.5 empty:hidden",
+  fixed: [
+    "sticky top-0 z-10",
+    "w-full min-h-11",
+    "bg-[var(--tt-toolbar-bg-color)]",
+    "border-b border-[var(--tt-toolbar-border-color)]",
+    "px-2",
+    "overflow-x-auto overscroll-x-contain",
+    "scrollbar-none",
+    // Mobile styles
+    "max-[480px]:absolute max-[480px]:top-auto",
+    "max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
+    "max-[480px]:border-t max-[480px]:border-b-0",
+    "max-[480px]:pb-[env(safe-area-inset-bottom,0px)]",
+    "max-[480px]:flex-nowrap max-[480px]:justify-start",
+  ].join(" "),
+  floating: [
+    "p-0.5",
+    "rounded-2xl",
+    "border border-[var(--tt-toolbar-border-color)]",
+    "bg-[var(--tt-toolbar-bg-color)]",
+    "shadow-lg",
+    "outline-none overflow-hidden",
+    // Plain variant
+    "data-[plain=true]:p-0 data-[plain=true]:rounded-none",
+    "data-[plain=true]:border-none data-[plain=true]:shadow-none data-[plain=true]:bg-transparent",
+    // Mobile
+    "max-[480px]:w-full max-[480px]:rounded-none",
+    "max-[480px]:border-none max-[480px]:shadow-none",
+  ].join(" "),
+};
+
 const useToolbarNavigation = (
-  toolbarRef: React.RefObject<HTMLDivElement | null>
+  toolbarRef: React.RefObject<HTMLDivElement | null>,
 ) => {
-  const [items, setItems] = useState<HTMLElement[]>([])
+  const [items, setItems] = useState<HTMLElement[]>([]);
 
   const collectItems = useCallback(() => {
-    if (!toolbarRef.current) return []
+    if (!toolbarRef.current) return [];
     return Array.from(
       toolbarRef.current.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [role="button"]:not([disabled]), [tabindex="0"]:not([disabled])'
-      )
-    )
-  }, [toolbarRef])
+        'button:not([disabled]), [role="button"]:not([disabled]), [tabindex="0"]:not([disabled])',
+      ),
+    );
+  }, [toolbarRef]);
 
   useEffect(() => {
-    const toolbar = toolbarRef.current
-    if (!toolbar) return
+    const toolbar = toolbarRef.current;
+    if (!toolbar) return;
 
-    const updateItems = () => setItems(collectItems())
+    const updateItems = () => setItems(collectItems());
 
-    updateItems()
-    const observer = new MutationObserver(updateItems)
-    observer.observe(toolbar, { childList: true, subtree: true })
+    updateItems();
+    const observer = new MutationObserver(updateItems);
+    observer.observe(toolbar, { childList: true, subtree: true });
 
-    return () => observer.disconnect()
-  }, [collectItems, toolbarRef])
+    return () => observer.disconnect();
+  }, [collectItems, toolbarRef]);
 
   const { selectedIndex } = useMenuNavigation<HTMLElement>({
     containerRef: toolbarRef,
@@ -45,94 +80,95 @@ const useToolbarNavigation = (
     orientation: "horizontal",
     onSelect: (el) => el.click(),
     autoSelectFirstItem: false,
-  })
+  });
 
   useEffect(() => {
-    const toolbar = toolbarRef.current
-    if (!toolbar) return
+    const toolbar = toolbarRef.current;
+    if (!toolbar) return;
 
     const handleFocus = (e: FocusEvent) => {
-      const target = e.target as HTMLElement
+      const target = e.target as HTMLElement;
       if (toolbar.contains(target))
-        target.setAttribute("data-focus-visible", "true")
-    }
+        target.setAttribute("data-focus-visible", "true");
+    };
 
     const handleBlur = (e: FocusEvent) => {
-      const target = e.target as HTMLElement
-      if (toolbar.contains(target)) target.removeAttribute("data-focus-visible")
-    }
+      const target = e.target as HTMLElement;
+      if (toolbar.contains(target))
+        target.removeAttribute("data-focus-visible");
+    };
 
-    toolbar.addEventListener("focus", handleFocus, true)
-    toolbar.addEventListener("blur", handleBlur, true)
+    toolbar.addEventListener("focus", handleFocus, true);
+    toolbar.addEventListener("blur", handleBlur, true);
 
     return () => {
-      toolbar.removeEventListener("focus", handleFocus, true)
-      toolbar.removeEventListener("blur", handleBlur, true)
-    }
-  }, [toolbarRef])
+      toolbar.removeEventListener("focus", handleFocus, true);
+      toolbar.removeEventListener("blur", handleBlur, true);
+    };
+  }, [toolbarRef]);
 
   useEffect(() => {
     if (selectedIndex !== undefined && items[selectedIndex]) {
-      items[selectedIndex].focus()
+      items[selectedIndex].focus();
     }
-  }, [selectedIndex, items])
-}
+  }, [selectedIndex, items]);
+};
 
-export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-  ({ children, className, variant = "fixed", ...props }, ref) => {
-    const toolbarRef = useRef<HTMLDivElement>(null)
-    const composedRef = useComposedRef(toolbarRef, ref)
-    useToolbarNavigation(toolbarRef)
+export function Toolbar({
+  children,
+  className,
+  variant = "fixed",
+  ref,
+  ...props
+}: ToolbarProps) {
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  const composedRef = useComposedRef(toolbarRef, ref);
+  useToolbarNavigation(toolbarRef);
 
-    return (
-      <div
-        ref={composedRef}
-        role="toolbar"
-        aria-label="toolbar"
-        data-variant={variant}
-        className={cn(
-          "flex items-center gap-1",
-          variant === "fixed" && 
-            "sticky top-0 z-10 w-full min-h-[2.75rem] bg-(--white) dark:bg-(--black) border-b border-(--tt-gray-light-a-100) dark:border-(--tt-gray-dark-a-50) px-2 overflow-x-auto scrollbar-hide",
-          variant === "floating" && 
-            "p-0.5 rounded-lg border shadow-md bg-(--white) dark:bg-(--black) border-(--tt-gray-light-a-100) dark:border-(--tt-gray-dark-a-50)",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    )
-  }
-)
-Toolbar.displayName = "Toolbar"
-
-export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
-  ({ children, className, ...props }, ref) => (
+  return (
     <div
-      ref={ref}
-      role="group"
+      ref={composedRef}
+      role="toolbar"
+      aria-label="toolbar"
+      data-variant={variant}
       className={cn(
-        "flex items-center gap-0.5 empty:hidden",
-        className
+        toolbarStyles.base,
+        variant === "fixed" ? toolbarStyles.fixed : toolbarStyles.floating,
+        className,
       )}
       {...props}
     >
       {children}
     </div>
-  )
-)
-ToolbarGroup.displayName = "ToolbarGroup"
+  );
+}
 
-export const ToolbarSeparator = forwardRef<HTMLDivElement, BaseProps>(
-  ({ ...props }, ref) => (
-    <Separator 
-      ref={ref} 
-      orientation="vertical" 
-      decorative 
-      className="mx-1 h-4"
-      {...props} 
-    />
-  )
-)
-ToolbarSeparator.displayName = "ToolbarSeparator"
+interface ToolbarGroupProps extends BaseProps {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+export function ToolbarGroup({
+  children,
+  className,
+  ref,
+  ...props
+}: ToolbarGroupProps) {
+  return (
+    <div
+      ref={ref}
+      role="group"
+      className={cn(toolbarStyles.group, className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface ToolbarSeparatorProps extends BaseProps {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+export function ToolbarSeparator({ ref, ...props }: ToolbarSeparatorProps) {
+  return <Separator ref={ref} orientation="vertical" decorative {...props} />;
+}

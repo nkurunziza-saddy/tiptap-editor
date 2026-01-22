@@ -1,7 +1,7 @@
 "use client"
 
 // --- UI Primitives ---
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/tiptap-ui-primitive/button"
 
 // --- Icons ---
 import { MoonStarIcon } from "@/components/tiptap-icons/moon-star-icon"
