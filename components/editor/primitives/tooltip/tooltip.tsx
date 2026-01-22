@@ -47,7 +47,6 @@ const tooltipKbdVariants = cva([
   "text-[var(--editor-kbd)]",
 ]);
 
-// Types
 interface TooltipProviderProps {
   children: React.ReactNode;
   initialOpen?: boolean;
@@ -90,7 +89,6 @@ interface TooltipContextValue extends UseFloatingReturn<ReferenceType> {
   ) => Record<string, unknown>;
 }
 
-// Hook
 function useTooltip({
   initialOpen = false,
   placement = "top",
@@ -142,7 +140,6 @@ function useTooltip({
   );
 }
 
-// Context
 const TooltipContext = createContext<TooltipContextValue | null>(null);
 
 function useTooltipContext() {
@@ -153,7 +150,6 @@ function useTooltipContext() {
   return context;
 }
 
-// Components
 function Tooltip({ children, ...props }: TooltipProviderProps) {
   const tooltip = useTooltip(props);
 

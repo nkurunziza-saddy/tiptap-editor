@@ -4,13 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import type { Editor } from "@tiptap/react";
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Icons ---
 import { BlockquoteIcon } from "@/components/editor/icons/blockquote-icon";
 
-// --- UI Utils ---
 import {
   findNodePosition,
   getSelectedBlockNodes,

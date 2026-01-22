@@ -2,20 +2,16 @@
 
 import { useCallback } from "react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Tiptap UI ---
 import type { UseCodeBlockConfig } from "@/components/editor/ui/code-block-button";
 import {
   CODE_BLOCK_SHORTCUT_KEY,
   useCodeBlock,
 } from "@/components/editor/ui/code-block-button";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

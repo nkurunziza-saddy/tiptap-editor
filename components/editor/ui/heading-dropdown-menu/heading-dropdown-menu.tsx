@@ -2,18 +2,14 @@
 
 import { useCallback, useState } from "react";
 
-// --- Icons ---
 import { ChevronDownIcon } from "@/components/editor/icons/chevron-down-icon";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Tiptap UI ---
 import { HeadingButton } from "@/components/editor/ui/heading-button";
 import type { UseHeadingDropdownMenuConfig } from "@/components/editor/ui/heading-dropdown-menu";
 import { useHeadingDropdownMenu } from "@/components/editor/ui/heading-dropdown-menu";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button, ButtonGroup } from "@/components/editor/primitives/button";
 import {

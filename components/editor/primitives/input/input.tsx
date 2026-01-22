@@ -1,6 +1,6 @@
 "use client";
 
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const inputVariants = cva([
@@ -15,7 +15,6 @@ const inputVariants = cva([
 
 const inputGroupVariants = cva("relative flex flex-wrap items-stretch");
 
-// Types
 type InputProps = React.ComponentProps<"input"> & {
   ref?: React.Ref<HTMLInputElement>;
 };
@@ -24,7 +23,6 @@ type InputGroupProps = React.ComponentProps<"div"> & {
   ref?: React.Ref<HTMLDivElement>;
 };
 
-// Components
 function Input({ className, type, ref, ...props }: InputProps) {
   return (
     <input

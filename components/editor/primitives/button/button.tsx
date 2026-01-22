@@ -13,14 +13,12 @@ import {
 
 const buttonVariants = cva(
   [
-    // Base styles
     "inline-flex items-center justify-center gap-0.5",
     "rounded-lg border-none",
     "text-sm font-medium leading-tight",
     "transition-all duration-200 ease-out",
     "focus-visible:outline-none",
     "disabled:pointer-events-none disabled:opacity-50",
-    // Icon styles
     "[&_svg]:pointer-events-none [&_svg]:shrink-0",
   ],
   {
@@ -130,7 +128,6 @@ function Button({
   );
 }
 
-// ButtonGroup with variants
 const buttonGroupVariants = cva("relative flex align-middle", {
   variants: {
     orientation: {

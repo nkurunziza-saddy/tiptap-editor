@@ -2,20 +2,16 @@
 
 import { useCallback, useMemo } from "react";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Tiptap UI ---
 import type { UseColorHighlightConfig } from "@/components/editor/ui/color-highlight-button";
 import {
   COLOR_HIGHLIGHT_SHORTCUT_KEY,
   useColorHighlight,
 } from "@/components/editor/ui/color-highlight-button";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

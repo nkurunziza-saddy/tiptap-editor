@@ -4,13 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import type { ChainedCommands } from "@tiptap/react";
 import { type Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Lib ---
 import { isExtensionAvailable, isNodeTypeSelected } from "@/lib/utils";
 
-// --- Icons ---
 import { AlignCenterIcon } from "@/components/editor/icons/align-center-icon";
 import { AlignJustifyIcon } from "@/components/editor/icons/align-justify-icon";
 import { AlignLeftIcon } from "@/components/editor/icons/align-left-icon";

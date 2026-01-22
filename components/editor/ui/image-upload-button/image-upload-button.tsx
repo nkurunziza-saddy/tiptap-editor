@@ -2,17 +2,13 @@
 
 import { useCallback } from "react";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Tiptap UI ---
 import type { UseImageUploadConfig } from "./use-image-upload";
 import { IMAGE_UPLOAD_SHORTCUT_KEY, useImageUpload } from "./use-image-upload";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

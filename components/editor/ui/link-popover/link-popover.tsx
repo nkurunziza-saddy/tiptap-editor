@@ -3,21 +3,17 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Icons ---
 import { CornerDownLeftIcon } from "@/components/editor/icons/corner-down-left-icon";
 import { ExternalLinkIcon } from "@/components/editor/icons/external-link-icon";
 import { LinkIcon } from "@/components/editor/icons/link-icon";
 import { TrashIcon } from "@/components/editor/icons/trash-icon";
 
-// --- Tiptap UI ---
 import type { UseLinkPopoverConfig } from "./use-link-popover";
 import { useLinkPopover } from "./use-link-popover";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button, ButtonGroup } from "@/components/editor/primitives/button";
 import {

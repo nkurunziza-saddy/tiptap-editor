@@ -4,18 +4,15 @@ import { useCallback, useEffect, useState } from "react";
 import { type Editor } from "@tiptap/react";
 import { useHotkeys } from "react-hotkeys-hook";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
 
-// --- Lib ---
 import {
   isMarkInSchema,
   isNodeTypeSelected,
   isExtensionAvailable,
 } from "@/lib/utils";
 
-// --- Icons ---
 import { HighlighterIcon } from "@/components/editor/icons/highlighter-icon";
 
 export const COLOR_HIGHLIGHT_SHORTCUT_KEY = "mod+shift+h";

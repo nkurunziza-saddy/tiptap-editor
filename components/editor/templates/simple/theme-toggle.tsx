@@ -1,9 +1,7 @@
 "use client";
 
-// --- UI Primitives ---
 import { Button } from "@/components/editor/primitives/button";
 
-// --- Icons ---
 import { MoonStarIcon } from "@/components/editor/icons/moon-star-icon";
 import { SunIcon } from "@/components/editor/icons/sun-icon";
 import { useEffect, useState } from "react";

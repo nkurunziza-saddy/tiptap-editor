@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
-// --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
 import { Image } from "@tiptap/extension-image";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
@@ -14,7 +13,6 @@ import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Selection } from "@tiptap/extensions";
 
-// --- UI Primitives ---
 import { Button } from "@/components/editor/primitives/button";
 import { Spacer } from "@/components/editor/primitives/spacer";
 import {
@@ -23,11 +21,9 @@ import {
   ToolbarSeparator,
 } from "@/components/editor/primitives/toolbar";
 
-// --- Tiptap Node ---
 import { ImageUploadNode } from "@/components/editor/nodes/image-upload-node/image-upload-node-extension";
 import { HorizontalRule } from "@/components/editor/nodes/horizontal-rule-node/horizontal-rule-node-extension";
 
-// --- Tiptap UI ---
 import { HeadingDropdownMenu } from "@/components/editor/ui/heading-dropdown-menu";
 import { ImageUploadButton } from "@/components/editor/ui/image-upload-button";
 import { ListDropdownMenu } from "@/components/editor/ui/list-dropdown-menu";
@@ -47,23 +43,18 @@ import { MarkButton } from "@/components/editor/ui/mark-button";
 import { TextAlignButton } from "@/components/editor/ui/text-align-button";
 import { UndoRedoButton } from "@/components/editor/ui/undo-redo-button";
 
-// --- Icons ---
 import { ArrowLeftIcon } from "@/components/editor/icons/arrow-left-icon";
 import { HighlighterIcon } from "@/components/editor/icons/highlighter-icon";
 import { LinkIcon } from "@/components/editor/icons/link-icon";
 
-// --- Hooks ---
 import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
 import { useWindowSize } from "@/hooks/use-window-size";
 import { useCursorVisibility } from "@/hooks/use-cursor-visibility";
 
-// --- Components ---
 import { ThemeToggle } from "@/components/editor/templates/simple/theme-toggle";
 
-// --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/utils";
 
-// --- Styles ---
 import "@/styles/editor.css";
 
 import content from "@/components/editor/templates/simple/data/content.json";

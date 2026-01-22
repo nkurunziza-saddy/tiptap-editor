@@ -3,13 +3,10 @@
 import { useEffect, useState } from "react";
 import type { Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Icons ---
 import { HeadingIcon } from "@/components/editor/icons/heading-icon";
 
-// --- Tiptap UI ---
 import {
   headingIcons,
   type Level,

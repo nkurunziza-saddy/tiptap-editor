@@ -4,10 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { type Editor } from "@tiptap/react";
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Lib ---
 import {
   findNodePosition,
   getSelectedBlockNodes,
@@ -17,7 +15,6 @@ import {
   selectionWithinConvertibleTypes,
 } from "@/lib/utils";
 
-// --- Icons ---
 import { CodeBlockIcon } from "@/components/editor/icons/code-block-icon";
 
 export const CODE_BLOCK_SHORTCUT_KEY = "mod+alt+c";

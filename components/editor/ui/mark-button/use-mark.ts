@@ -3,13 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Lib ---
 import { isMarkInSchema, isNodeTypeSelected } from "@/lib/utils";
 
-// --- Icons ---
 import { BoldIcon } from "@/components/editor/icons/bold-icon";
 import { Code2Icon } from "@/components/editor/icons/code2-icon";
 import { ItalicIcon } from "@/components/editor/icons/italic-icon";

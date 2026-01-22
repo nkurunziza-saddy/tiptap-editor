@@ -2,14 +2,11 @@
 
 import { useCallback } from "react";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Tiptap UI ---
 import type { Level, UseHeadingConfig } from "./use-heading";
 import { HEADING_SHORTCUT_KEYS, useHeading } from "./use-heading";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

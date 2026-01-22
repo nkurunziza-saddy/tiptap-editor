@@ -3,18 +3,14 @@
 import { useCallback, useState } from "react";
 import type { Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Icons ---
 import { ChevronDownIcon } from "@/components/editor/icons/chevron-down-icon";
 
-// --- Tiptap UI ---
 import { ListButton, type ListType } from "@/components/editor/ui/list-button";
 
 import { useListDropdownMenu } from "@/components/editor/ui/list-dropdown-menu/use-list-dropdown-menu";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button, ButtonGroup } from "@/components/editor/primitives/button";
 import {

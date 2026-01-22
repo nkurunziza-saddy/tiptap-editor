@@ -2,20 +2,16 @@
 
 import { useCallback } from "react";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Tiptap UI ---
 import type { Mark, UseMarkConfig } from "@/components/editor/ui/mark-button";
 import {
   MARK_SHORTCUT_KEYS,
   useMark,
 } from "@/components/editor/ui/mark-button";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

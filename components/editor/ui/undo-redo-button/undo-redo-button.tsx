@@ -2,13 +2,10 @@
 
 import { useCallback } from "react";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Tiptap UI ---
 import type {
   UndoRedoAction,
   UseUndoRedoConfig,
@@ -18,7 +15,6 @@ import {
   useUndoRedo,
 } from "@/components/editor/ui/undo-redo-button";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

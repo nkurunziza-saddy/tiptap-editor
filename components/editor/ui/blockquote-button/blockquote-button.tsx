@@ -2,20 +2,16 @@
 
 import { useCallback } from "react";
 
-// --- Tiptap UI ---
 import type { UseBlockquoteConfig } from "@/components/editor/ui/blockquote-button";
 import {
   BLOCKQUOTE_SHORTCUT_KEY,
   useBlockquote,
 } from "@/components/editor/ui/blockquote-button";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Lib ---
 import { parseShortcutKeys } from "@/lib/utils";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button } from "@/components/editor/primitives/button";
 import { Badge } from "@/components/editor/primitives/badge";

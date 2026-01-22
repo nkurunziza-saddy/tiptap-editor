@@ -4,14 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { type Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useEditor } from "@/hooks/use-editor";
 import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
 
-// --- Lib ---
 import { isExtensionAvailable } from "@/lib/utils";
 
-// --- Icons ---
 import { ImagePlusIcon } from "@/components/editor/icons/image-plus-icon";
 
 export const IMAGE_UPLOAD_SHORTCUT_KEY = "mod+shift+i";

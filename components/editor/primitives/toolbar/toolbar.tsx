@@ -18,7 +18,6 @@ const toolbarVariants = cva("flex items-center gap-1", {
         "px-2",
         "overflow-x-auto overscroll-x-contain",
         "scrollbar-none",
-        // Mobile styles
         "max-[480px]:absolute max-[480px]:top-auto",
         "max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
         "max-[480px]:border-t max-[480px]:border-b-0",
@@ -32,10 +31,8 @@ const toolbarVariants = cva("flex items-center gap-1", {
         "bg-[var(--editor-toolbar-bg-color)]",
         "shadow-lg",
         "outline-none overflow-hidden",
-        // Plain variant
         "data-[plain=true]:p-0 data-[plain=true]:rounded-none",
         "data-[plain=true]:border-none data-[plain=true]:shadow-none data-[plain=true]:bg-transparent",
-        // Mobile
         "max-[480px]:w-full max-[480px]:rounded-none",
         "max-[480px]:border-none max-[480px]:shadow-none",
       ],

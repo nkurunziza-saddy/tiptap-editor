@@ -44,14 +44,12 @@ const cardGroupLabelVariants = cva([
   "text-[var(--editor-card-group-label-color)]",
 ]);
 
-// Types
 type CardProps = React.ComponentProps<"div"> & {
   ref?: React.Ref<HTMLDivElement>;
 };
 type CardItemGroupProps = CardProps &
   VariantProps<typeof cardItemGroupVariants>;
 
-// Components
 function Card({ className, ref, ...props }: CardProps) {
   return (
     <div

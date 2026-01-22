@@ -3,16 +3,13 @@
 import { useMemo, useRef, useState } from "react";
 import type { Editor } from "@tiptap/react";
 
-// --- Hooks ---
 import { useMenuNavigation } from "@/hooks/use-menu-navigation";
 import { useIsBreakpoint } from "@/hooks/use-is-breakpoint";
 import { useEditor } from "@/hooks/use-editor";
 
-// --- Icons ---
 import { BanIcon } from "@/components/editor/icons/ban-icon";
 import { HighlighterIcon } from "@/components/editor/icons/highlighter-icon";
 
-// --- UI Primitives ---
 import type { ButtonProps } from "@/components/editor/primitives/button";
 import { Button, ButtonGroup } from "@/components/editor/primitives/button";
 import {
@@ -27,7 +24,6 @@ import {
   CardItemGroup,
 } from "@/components/editor/primitives/card";
 
-// --- Tiptap UI ---
 import type {
   HighlightColor,
   UseColorHighlightConfig,
