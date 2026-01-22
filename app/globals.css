@@ -1,6 +1,3 @@
-@import "../styles/_variables.scss";
-@import "../styles/_keyframe-animations.scss";
-
 @import "tailwindcss";
 
 @import "tw-animate-css";
@@ -85,6 +82,70 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Editor-specific variables */
+  --editor-cursor: var(--primary);
+  --editor-selection: oklch(0.75 0.1 280 / 20%);
+  --editor-placeholder: var(--muted-foreground);
+  --editor-link: var(--primary);
+
+  /* Tiptap UI Component Variables */
+  /* Toolbar */
+  --editor-toolbar-bg-color: var(--background);
+  --editor-toolbar-border-color: var(--border);
+
+  /* Button */
+  --editor-button-default-bg-color: transparent;
+  --editor-button-default-text-color: var(--muted-foreground);
+  --editor-button-hover-bg-color: var(--muted);
+  --editor-button-hover-text-color: var(--foreground);
+  --editor-button-active-bg-color: var(--muted);
+  --editor-button-active-text-color: var(--foreground);
+
+  /* Brand colors */
+  --editor-brand-color-500: var(--primary);
+  --editor-brand-color-600: oklch(0.55 0.12 222);
+
+  /* Tooltip */
+  --editor-tooltip-bg: var(--foreground);
+  --editor-tooltip-text: var(--background);
+  --editor-kbd: var(--muted-foreground);
+
+  /* Card */
+  --editor-card-bg-color: var(--background);
+  --editor-card-border-color: var(--border);
+  --editor-card-group-label-color: var(--foreground);
+
+  /* Separator */
+  --editor-separator-color: var(--border);
+
+  /* Background Color (for removing highlight) */
+  --editor-bg-color: var(--background);
+  --editor-bg-color-contrast: transparent;
+
+  /* Input */
+  --editor-input-placeholder: var(--muted-foreground);
+
+  /* Highlight Colors */
+  --editor-color-highlight-yellow: #fef9c3;
+  --editor-color-highlight-green: #dcfce7;
+  --editor-color-highlight-blue: #e0f2fe;
+  --editor-color-highlight-purple: #f3e8ff;
+  --editor-color-highlight-red: #ffe4e6;
+  --editor-color-highlight-gray: rgb(248, 248, 247);
+  --editor-color-highlight-brown: rgb(244, 238, 238);
+  --editor-color-highlight-orange: rgb(251, 236, 221);
+  --editor-color-highlight-pink: rgb(252, 241, 246);
+
+  --editor-color-highlight-yellow-contrast: #fbe604;
+  --editor-color-highlight-green-contrast: #c7fad8;
+  --editor-color-highlight-blue-contrast: #ceeafd;
+  --editor-color-highlight-purple-contrast: #e4ccff;
+  --editor-color-highlight-red-contrast: #ffccd0;
+  --editor-color-highlight-gray-contrast: rgba(84, 72, 49, 0.15);
+  --editor-color-highlight-brown-contrast: rgba(210, 162, 141, 0.35);
+  --editor-color-highlight-orange-contrast: rgba(224, 124, 57, 0.27);
+  --editor-color-highlight-pink-contrast: rgba(225, 136, 179, 0.27);
 }
 
 .dark {
@@ -119,6 +180,70 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Editor-specific variables */
+  --editor-cursor: var(--primary);
+  --editor-selection: oklch(0.55 0.15 280 / 25%);
+  --editor-placeholder: var(--muted-foreground);
+  --editor-link: var(--primary);
+
+  /* Tiptap UI Component Variables */
+  /* Toolbar */
+  --editor-toolbar-bg-color: var(--background);
+  --editor-toolbar-border-color: var(--border);
+
+  /* Button */
+  --editor-button-default-bg-color: transparent;
+  --editor-button-default-text-color: var(--muted-foreground);
+  --editor-button-hover-bg-color: var(--muted);
+  --editor-button-hover-text-color: var(--foreground);
+  --editor-button-active-bg-color: var(--muted);
+  --editor-button-active-text-color: var(--foreground);
+
+  /* Brand colors */
+  --editor-brand-color-500: var(--primary);
+  --editor-brand-color-600: oklch(0.65 0.14 215);
+
+  /* Tooltip */
+  --editor-tooltip-bg: var(--foreground);
+  --editor-tooltip-text: var(--background);
+  --editor-kbd: var(--muted-foreground);
+
+  /* Card */
+  --editor-card-bg-color: var(--card);
+  --editor-card-border-color: var(--border);
+  --editor-card-group-label-color: var(--foreground);
+
+  /* Separator */
+  --editor-separator-color: var(--border);
+
+  /* Background Color (for removing highlight) */
+  --editor-bg-color: var(--background);
+  --editor-bg-color-contrast: transparent;
+
+  /* Input */
+  --editor-input-placeholder: var(--muted-foreground);
+
+  /* Highlight Colors */
+  --editor-color-highlight-yellow: #6b6524;
+  --editor-color-highlight-green: #509568;
+  --editor-color-highlight-blue: #6e92aa;
+  --editor-color-highlight-purple: #583e74;
+  --editor-color-highlight-red: #743e42;
+  --editor-color-highlight-gray: rgb(47, 47, 47);
+  --editor-color-highlight-brown: rgb(74, 50, 40);
+  --editor-color-highlight-orange: rgb(92, 59, 35);
+  --editor-color-highlight-pink: rgb(78, 44, 60);
+
+  --editor-color-highlight-yellow-contrast: #58531e;
+  --editor-color-highlight-green-contrast: #47855d;
+  --editor-color-highlight-blue-contrast: #5e86a1;
+  --editor-color-highlight-purple-contrast: #4c3564;
+  --editor-color-highlight-red-contrast: #643539;
+  --editor-color-highlight-gray-contrast: rgba(255, 255, 255, 0.094);
+  --editor-color-highlight-brown-contrast: rgba(184, 101, 69, 0.25);
+  --editor-color-highlight-orange-contrast: rgba(233, 126, 37, 0.2);
+  --editor-color-highlight-pink-contrast: rgba(220, 76, 145, 0.22);
 }
 
 @layer base {
@@ -128,4 +253,55 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); }
+  to { transform: scale(0.95); }
+}
+
+@keyframes zoom {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideFromTop {
+  from { transform: translateY(-0.5rem); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(0.5rem); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideFromLeft {
+  from { transform: translateX(-0.5rem); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideFromBottom {
+  from { transform: translateY(0.5rem); }
+  to { transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

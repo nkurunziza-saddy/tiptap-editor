@@ -10,7 +10,7 @@ const inputVariants = cva([
   "rounded-md",
   "bg-transparent",
   "appearance-none outline-none",
-  "placeholder:text-[var(--tiptap-input-placeholder)]",
+  "placeholder:text-[var(--editor-input-placeholder)]",
 ]);
 
 const inputGroupVariants = cva("relative flex flex-wrap items-stretch");

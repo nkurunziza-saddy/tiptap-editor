@@ -15,21 +15,10 @@ declare module "@tiptap/core" {
 }
 
 export interface NodeBackgroundOptions {
-  /**
-   * Node types that should support background colors
-   * @default ["paragraph", "heading", "blockquote", "taskList", "bulletList", "orderedList", "tableCell", "tableHeader"]
-   */
   types: string[]
-  /**
-   * Use inline style instead of data attribute
-   * @default true
-   */
   useStyle?: boolean
 }
 
-/**
- * Determines the target color for toggle operations
- */
 function getToggleColor(
   targets: NodeWithPos[],
   inputColor: string
@@ -102,9 +91,6 @@ export const NodeBackground = Extension.create<NodeBackgroundOptions>({
   },
 
   addCommands() {
-    /**
-     * Generic command executor for background color operations
-     */
     const executeBackgroundCommand = (
       getTargetColor: (
         targets: NodeWithPos[],

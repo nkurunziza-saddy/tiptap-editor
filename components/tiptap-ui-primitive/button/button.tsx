@@ -27,25 +27,25 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: [
-          "bg-[var(--tt-button-default-bg-color)]",
-          "text-[var(--tt-button-default-text-color)]",
-          "hover:bg-[var(--tt-button-hover-bg-color)]",
-          "hover:text-[var(--tt-button-hover-text-color)]",
-          "data-[active-state=on]:bg-[var(--tt-button-active-bg-color)]",
-          "data-[active-state=on]:text-[var(--tt-button-active-text-color)]",
+          "bg-[var(--editor-button-default-bg-color)]",
+          "text-[var(--editor-button-default-text-color)]",
+          "hover:bg-[var(--editor-button-hover-bg-color)]",
+          "hover:text-[var(--editor-button-hover-text-color)]",
+          "data-[active-state=on]:bg-[var(--editor-button-active-bg-color)]",
+          "data-[active-state=on]:text-[var(--editor-button-active-text-color)]",
         ],
         ghost: [
           "bg-transparent",
-          "text-[var(--tt-button-default-text-color)]",
-          "hover:bg-[var(--tt-button-hover-bg-color)]",
-          "hover:text-[var(--tt-button-hover-text-color)]",
-          "data-[active-state=on]:bg-[var(--tt-button-active-bg-color)]",
-          "data-[active-state=on]:text-[var(--tt-button-active-text-color)]",
+          "text-[var(--editor-button-default-text-color)]",
+          "hover:bg-[var(--editor-button-hover-bg-color)]",
+          "hover:text-[var(--editor-button-hover-text-color)]",
+          "data-[active-state=on]:bg-[var(--editor-button-active-bg-color)]",
+          "data-[active-state=on]:text-[var(--editor-button-active-text-color)]",
         ],
         primary: [
-          "bg-[var(--tt-brand-color-500)]",
+          "bg-[var(--editor-brand-color-500)]",
           "text-white",
-          "hover:bg-[var(--tt-brand-color-600)]",
+          "hover:bg-[var(--editor-brand-color-600)]",
         ],
       },
       size: {

@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 
 const cardVariants = cva([
   "rounded-2xl shadow-lg",
-  "bg-[var(--tiptap-card-bg-color)]",
-  "border border-[var(--tiptap-card-border-color)]",
+  "bg-[var(--editor-card-bg-color)]",
+  "border border-[var(--editor-card-border-color)]",
   "flex flex-col items-center",
   "outline-none",
   "relative min-w-0 break-words bg-clip-border",
@@ -16,14 +16,14 @@ const cardHeaderVariants = cva([
   "p-1.5 flex-none",
   "flex items-center justify-between",
   "w-full",
-  "border-b border-[var(--tiptap-card-border-color)]",
+  "border-b border-[var(--editor-card-border-color)]",
 ]);
 
 const cardBodyVariants = cva("p-1.5 flex-1 overflow-y-auto");
 
 const cardFooterVariants = cva([
   "p-1.5 flex-none w-full",
-  "border-t border-[var(--tiptap-card-border-color)]",
+  "border-t border-[var(--editor-card-border-color)]",
 ]);
 
 const cardItemGroupVariants = cva("relative flex align-middle min-w-max", {
@@ -41,7 +41,7 @@ const cardItemGroupVariants = cva("relative flex align-middle min-w-max", {
 const cardGroupLabelVariants = cva([
   "pt-3 px-2 pb-1",
   "text-xs font-semibold leading-normal capitalize",
-  "text-[var(--tiptap-card-group-label-color)]",
+  "text-[var(--editor-card-group-label-color)]",
 ]);
 
 // Types

@@ -14,20 +14,20 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: [
-          "bg-[var(--tt-badge-bg-color)]",
-          "border-[var(--tt-badge-border-color)]",
-          "text-[var(--tt-badge-text-color)]",
+          "bg-[var(--editor-badge-bg-color)]",
+          "border-[var(--editor-badge-border-color)]",
+          "text-[var(--editor-badge-text-color)]",
         ],
         ghost: "bg-transparent border-transparent",
         emphasized: [
-          "bg-[var(--tt-badge-bg-color-emphasized)]",
-          "border-[var(--tt-badge-border-color-emphasized)]",
-          "text-[var(--tt-badge-text-color-emphasized)]",
+          "bg-[var(--editor-badge-bg-color-emphasized)]",
+          "border-[var(--editor-badge-border-color-emphasized)]",
+          "text-[var(--editor-badge-text-color-emphasized)]",
         ],
         subdued: [
-          "bg-[var(--tt-badge-bg-color-subdued)]",
-          "border-[var(--tt-badge-border-color-subdued)]",
-          "text-[var(--tt-badge-text-color-subdued)]",
+          "bg-[var(--editor-badge-bg-color-subdued)]",
+          "border-[var(--editor-badge-border-color-subdued)]",
+          "text-[var(--editor-badge-text-color-subdued)]",
         ],
       },
       size: {

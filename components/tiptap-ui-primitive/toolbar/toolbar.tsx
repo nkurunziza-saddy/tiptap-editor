@@ -13,8 +13,8 @@ const toolbarVariants = cva("flex items-center gap-1", {
       fixed: [
         "sticky top-0 z-10",
         "w-full min-h-11",
-        "bg-[var(--tt-toolbar-bg-color)]",
-        "border-b border-[var(--tt-toolbar-border-color)]",
+        "bg-[var(--editor-toolbar-bg-color)]",
+        "border-b border-[var(--editor-toolbar-border-color)]",
         "px-2",
         "overflow-x-auto overscroll-x-contain",
         "scrollbar-none",
@@ -28,8 +28,8 @@ const toolbarVariants = cva("flex items-center gap-1", {
       floating: [
         "p-0.5",
         "rounded-2xl",
-        "border border-[var(--tt-toolbar-border-color)]",
-        "bg-[var(--tt-toolbar-bg-color)]",
+        "border border-[var(--editor-toolbar-border-color)]",
+        "bg-[var(--editor-toolbar-bg-color)]",
         "shadow-lg",
         "outline-none overflow-hidden",
         // Plain variant

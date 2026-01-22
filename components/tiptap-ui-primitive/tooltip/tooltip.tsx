@@ -33,10 +33,10 @@ import { cn } from "@/lib/utils";
 const tooltipVariants = cva([
   "z-[200] overflow-hidden",
   "rounded-md",
-  "bg-[var(--tt-tooltip-bg)]",
+  "bg-[var(--editor-tooltip-bg)]",
   "px-2 py-1.5",
   "text-xs font-medium",
-  "text-[var(--tt-tooltip-text)]",
+  "text-[var(--editor-tooltip-text)]",
   "shadow-md",
   "text-center",
 ]);
@@ -44,7 +44,7 @@ const tooltipVariants = cva([
 const tooltipKbdVariants = cva([
   "inline-block text-center align-baseline",
   "font-sans capitalize",
-  "text-[var(--tt-kbd)]",
+  "text-[var(--editor-kbd)]",
 ]);
 
 // Types
