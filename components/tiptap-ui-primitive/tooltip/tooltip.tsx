@@ -27,25 +27,27 @@ import {
   type ReferenceType,
   FloatingDelayGroup,
 } from "@floating-ui/react";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const tooltipStyles = {
-  base: [
-    "z-[200] overflow-hidden",
-    "rounded-md",
-    "bg-[var(--tt-tooltip-bg)]",
-    "px-2 py-1.5",
-    "text-xs font-medium",
-    "text-[var(--tt-tooltip-text)]",
-    "shadow-md",
-    "text-center",
-  ].join(" "),
-  kbd: [
-    "inline-block text-center align-baseline",
-    "font-sans capitalize",
-    "text-[var(--tt-kbd)]",
-  ].join(" "),
-};
+const tooltipVariants = cva([
+  "z-[200] overflow-hidden",
+  "rounded-md",
+  "bg-[var(--tt-tooltip-bg)]",
+  "px-2 py-1.5",
+  "text-xs font-medium",
+  "text-[var(--tt-tooltip-text)]",
+  "shadow-md",
+  "text-center",
+]);
 
+const tooltipKbdVariants = cva([
+  "inline-block text-center align-baseline",
+  "font-sans capitalize",
+  "text-[var(--tt-kbd)]",
+]);
+
+// Types
 interface TooltipProviderProps {
   children: React.ReactNode;
   initialOpen?: boolean;
@@ -88,6 +90,7 @@ interface TooltipContextValue extends UseFloatingReturn<ReferenceType> {
   ) => Record<string, unknown>;
 }
 
+// Hook
 function useTooltip({
   initialOpen = false,
   placement = "top",
@@ -125,44 +128,33 @@ function useTooltip({
     move: false,
     restMs: delay,
     enabled: controlledOpen == null,
-    delay: {
-      close: closeDelay,
-    },
+    delay: { close: closeDelay },
   });
-  const focus = useFocus(context, {
-    enabled: controlledOpen == null,
-  });
+  const focus = useFocus(context, { enabled: controlledOpen == null });
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: "tooltip" });
 
   const interactions = useInteractions([hover, focus, dismiss, role]);
 
   return useMemo(
-    () => ({
-      open,
-      setOpen,
-      ...interactions,
-      ...data,
-    }),
+    () => ({ open, setOpen, ...interactions, ...data }),
     [open, setOpen, interactions, data],
   );
 }
 
+// Context
 const TooltipContext = createContext<TooltipContextValue | null>(null);
 
 function useTooltipContext() {
   const context = useContext(TooltipContext);
-
   if (context == null) {
-    throw new Error(
-      "Tooltip components must be wrapped in <TooltipProvider />",
-    );
+    throw new Error("Tooltip components must be wrapped in <Tooltip />");
   }
-
   return context;
 }
 
-export function Tooltip({ children, ...props }: TooltipProviderProps) {
+// Components
+function Tooltip({ children, ...props }: TooltipProviderProps) {
   const tooltip = useTooltip(props);
 
   if (!props.useDelayGroup) {
@@ -185,7 +177,7 @@ export function Tooltip({ children, ...props }: TooltipProviderProps) {
   );
 }
 
-export function TooltipTrigger({
+function TooltipTrigger({
   children,
   asChild = false,
   ref: propRef,
@@ -194,10 +186,8 @@ export function TooltipTrigger({
   const context = useTooltipContext();
   const childrenRef = isValidElement(children)
     ? parseInt(version, 10) >= 19
-      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as { props: { ref?: React.Ref<any> } }).props.ref
-      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as any).ref
+      ? (children as { props: { ref?: React.Ref<unknown> } }).props.ref
+      : (children as { ref?: React.Ref<unknown> }).ref
     : undefined;
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
@@ -219,6 +209,7 @@ export function TooltipTrigger({
 
   return (
     <button
+      data-slot="tooltip-trigger"
       ref={ref}
       data-tooltip-state={context.open ? "open" : "closed"}
       {...context.getReferenceProps(props)}
@@ -228,7 +219,8 @@ export function TooltipTrigger({
   );
 }
 
-export function TooltipContent({
+function TooltipContent({
+  className,
   style,
   children,
   portal = true,
@@ -243,21 +235,27 @@ export function TooltipContent({
 
   const content = (
     <div
+      data-slot="tooltip-content"
       ref={ref}
-      style={{
-        ...context.floatingStyles,
-        ...style,
-      }}
+      style={{ ...context.floatingStyles, ...style }}
+      className={cn(tooltipVariants(), className)}
       {...context.getFloatingProps(props)}
-      className={tooltipStyles.base}
     >
       {children}
     </div>
   );
 
-  if (portal) {
-    return <FloatingPortal {...portalProps}>{content}</FloatingPortal>;
-  }
-
-  return content;
+  return portal ? (
+    <FloatingPortal {...portalProps}>{content}</FloatingPortal>
+  ) : (
+    content
+  );
 }
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  tooltipVariants,
+  tooltipKbdVariants,
+};

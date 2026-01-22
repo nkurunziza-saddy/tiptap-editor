@@ -1,28 +1,33 @@
 "use client";
 
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { cn } from "@/lib/tiptap-utils";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const dropdownMenuStyles = {
-  content: [
-    "z-50 outline-none",
-    "origin-[var(--radix-dropdown-menu-content-transform-origin)]",
-    "max-h-[var(--radix-dropdown-menu-content-available-height)]",
-    // Animation states
-    "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-    "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-    // Position-based animations
-    "data-[side=bottom]:slide-in-from-top-2",
-    "data-[side=left]:slide-in-from-right-2",
-    "data-[side=right]:slide-in-from-left-2",
-    "data-[side=top]:slide-in-from-bottom-2",
-  ].join(" "),
-};
+const dropdownMenuContentVariants = cva([
+  "z-50 outline-none",
+  "origin-[var(--radix-dropdown-menu-content-transform-origin)]",
+  "max-h-[var(--radix-dropdown-menu-content-available-height)]",
+  // Animation states
+  "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+  "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+  // Position-based animations
+  "data-[side=bottom]:slide-in-from-top-2",
+  "data-[side=left]:slide-in-from-right-2",
+  "data-[side=right]:slide-in-from-left-2",
+  "data-[side=top]:slide-in-from-bottom-2",
+]);
 
 function DropdownMenu({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
-  return <DropdownMenuPrimitive.Root modal={false} {...props} />;
+  return (
+    <DropdownMenuPrimitive.Root
+      data-slot="dropdown-menu"
+      modal={false}
+      {...props}
+    />
+  );
 }
 
 function DropdownMenuPortal({
@@ -31,14 +36,19 @@ function DropdownMenuPortal({
   return <DropdownMenuPrimitive.Portal {...props} />;
 }
 
-interface DropdownMenuTriggerProps extends React.ComponentProps<
-  typeof DropdownMenuPrimitive.Trigger
-> {
+function DropdownMenuTrigger({
+  ref,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger> & {
   ref?: React.Ref<HTMLButtonElement>;
-}
-
-function DropdownMenuTrigger({ ref, ...props }: DropdownMenuTriggerProps) {
-  return <DropdownMenuPrimitive.Trigger ref={ref} {...props} />;
+}) {
+  return (
+    <DropdownMenuPrimitive.Trigger
+      data-slot="dropdown-menu-trigger"
+      ref={ref}
+      {...props}
+    />
+  );
 }
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
@@ -62,8 +72,9 @@ function DropdownMenuSubContent({
 }: DropdownMenuSubContentProps) {
   const content = (
     <DropdownMenuPrimitive.SubContent
+      data-slot="dropdown-menu-subcontent"
       ref={ref}
-      className={cn(dropdownMenuStyles.content, className)}
+      className={cn(dropdownMenuContentVariants(), className)}
       {...props}
     />
   );
@@ -93,10 +104,11 @@ function DropdownMenuContent({
 }: DropdownMenuContentProps) {
   const content = (
     <DropdownMenuPrimitive.Content
+      data-slot="dropdown-menu-content"
       ref={ref}
       sideOffset={sideOffset}
       onCloseAutoFocus={(e) => e.preventDefault()}
-      className={cn(dropdownMenuStyles.content, className)}
+      className={cn(dropdownMenuContentVariants(), className)}
       {...props}
     />
   );
@@ -121,4 +133,5 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
+  dropdownMenuContentVariants,
 };

@@ -1,55 +1,71 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/tiptap-ui-primitive/separator";
-import { cn } from "@/lib/tiptap-utils";
 import { useMenuNavigation } from "@/hooks/use-menu-navigation";
 import { useComposedRef } from "@/hooks/use-composed-ref";
 
-type BaseProps = React.HTMLAttributes<HTMLDivElement>;
+const toolbarVariants = cva("flex items-center gap-1", {
+  variants: {
+    variant: {
+      fixed: [
+        "sticky top-0 z-10",
+        "w-full min-h-11",
+        "bg-[var(--tt-toolbar-bg-color)]",
+        "border-b border-[var(--tt-toolbar-border-color)]",
+        "px-2",
+        "overflow-x-auto overscroll-x-contain",
+        "scrollbar-none",
+        // Mobile styles
+        "max-[480px]:absolute max-[480px]:top-auto",
+        "max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
+        "max-[480px]:border-t max-[480px]:border-b-0",
+        "max-[480px]:pb-[env(safe-area-inset-bottom,0px)]",
+        "max-[480px]:flex-nowrap max-[480px]:justify-start",
+      ],
+      floating: [
+        "p-0.5",
+        "rounded-2xl",
+        "border border-[var(--tt-toolbar-border-color)]",
+        "bg-[var(--tt-toolbar-bg-color)]",
+        "shadow-lg",
+        "outline-none overflow-hidden",
+        // Plain variant
+        "data-[plain=true]:p-0 data-[plain=true]:rounded-none",
+        "data-[plain=true]:border-none data-[plain=true]:shadow-none data-[plain=true]:bg-transparent",
+        // Mobile
+        "max-[480px]:w-full max-[480px]:rounded-none",
+        "max-[480px]:border-none max-[480px]:shadow-none",
+      ],
+    },
+  },
+  defaultVariants: {
+    variant: "fixed",
+  },
+});
 
-interface ToolbarProps extends BaseProps {
-  variant?: "floating" | "fixed";
+const toolbarGroupVariants = cva("flex items-center gap-0.5 empty:hidden");
+
+interface ToolbarProps
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof toolbarVariants> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const toolbarStyles = {
-  base: "flex items-center gap-1",
-  group: "flex items-center gap-0.5 empty:hidden",
-  fixed: [
-    "sticky top-0 z-10",
-    "w-full min-h-11",
-    "bg-[var(--tt-toolbar-bg-color)]",
-    "border-b border-[var(--tt-toolbar-border-color)]",
-    "px-2",
-    "overflow-x-auto overscroll-x-contain",
-    "scrollbar-none",
-    // Mobile styles
-    "max-[480px]:absolute max-[480px]:top-auto",
-    "max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
-    "max-[480px]:border-t max-[480px]:border-b-0",
-    "max-[480px]:pb-[env(safe-area-inset-bottom,0px)]",
-    "max-[480px]:flex-nowrap max-[480px]:justify-start",
-  ].join(" "),
-  floating: [
-    "p-0.5",
-    "rounded-2xl",
-    "border border-[var(--tt-toolbar-border-color)]",
-    "bg-[var(--tt-toolbar-bg-color)]",
-    "shadow-lg",
-    "outline-none overflow-hidden",
-    // Plain variant
-    "data-[plain=true]:p-0 data-[plain=true]:rounded-none",
-    "data-[plain=true]:border-none data-[plain=true]:shadow-none data-[plain=true]:bg-transparent",
-    // Mobile
-    "max-[480px]:w-full max-[480px]:rounded-none",
-    "max-[480px]:border-none max-[480px]:shadow-none",
-  ].join(" "),
-};
+interface ToolbarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement>;
+}
 
-const useToolbarNavigation = (
+interface ToolbarSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+function useToolbarNavigation(
   toolbarRef: React.RefObject<HTMLDivElement | null>,
-) => {
+) {
   const [items, setItems] = useState<HTMLElement[]>([]);
 
   const collectItems = useCallback(() => {
@@ -112,12 +128,12 @@ const useToolbarNavigation = (
       items[selectedIndex].focus();
     }
   }, [selectedIndex, items]);
-};
+}
 
-export function Toolbar({
+function Toolbar({
   children,
   className,
-  variant = "fixed",
+  variant,
   ref,
   ...props
 }: ToolbarProps) {
@@ -127,15 +143,12 @@ export function Toolbar({
 
   return (
     <div
+      data-slot="toolbar"
+      data-variant={variant}
       ref={composedRef}
       role="toolbar"
       aria-label="toolbar"
-      data-variant={variant}
-      className={cn(
-        toolbarStyles.base,
-        variant === "fixed" ? toolbarStyles.fixed : toolbarStyles.floating,
-        className,
-      )}
+      className={cn(toolbarVariants({ variant }), className)}
       {...props}
     >
       {children}
@@ -143,11 +156,7 @@ export function Toolbar({
   );
 }
 
-interface ToolbarGroupProps extends BaseProps {
-  ref?: React.Ref<HTMLDivElement>;
-}
-
-export function ToolbarGroup({
+function ToolbarGroup({
   children,
   className,
   ref,
@@ -155,9 +164,10 @@ export function ToolbarGroup({
 }: ToolbarGroupProps) {
   return (
     <div
+      data-slot="toolbar-group"
       ref={ref}
       role="group"
-      className={cn(toolbarStyles.group, className)}
+      className={cn(toolbarGroupVariants(), className)}
       {...props}
     >
       {children}
@@ -165,10 +175,14 @@ export function ToolbarGroup({
   );
 }
 
-interface ToolbarSeparatorProps extends BaseProps {
-  ref?: React.Ref<HTMLDivElement>;
-}
-
-export function ToolbarSeparator({ ref, ...props }: ToolbarSeparatorProps) {
+function ToolbarSeparator({ ref, ...props }: ToolbarSeparatorProps) {
   return <Separator ref={ref} orientation="vertical" decorative {...props} />;
 }
+
+export {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  toolbarVariants,
+  toolbarGroupVariants,
+};

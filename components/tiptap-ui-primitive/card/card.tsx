@@ -1,96 +1,135 @@
 "use client";
 
-import { cn } from "@/lib/tiptap-utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-// Card styles
-const cardStyles = {
-  base: [
-    "rounded-2xl shadow-lg",
-    "bg-[var(--tiptap-card-bg-color)]",
-    "border border-[var(--tiptap-card-border-color)]",
-    "flex flex-col items-center",
-    "outline-none",
-    "relative min-w-0 break-words bg-clip-border",
-  ].join(" "),
-  header: [
-    "p-1.5 flex-none",
-    "flex items-center justify-between",
-    "w-full",
-    "border-b border-[var(--tiptap-card-border-color)]",
-  ].join(" "),
-  body: "p-1.5 flex-1 overflow-y-auto",
-  footer:
-    "p-1.5 flex-none w-full border-t border-[var(--tiptap-card-border-color)]",
-  itemGroup: {
-    base: "relative flex align-middle min-w-max",
-    vertical: "flex-col justify-center",
-    horizontal: "flex-row items-center gap-1",
+const cardVariants = cva([
+  "rounded-2xl shadow-lg",
+  "bg-[var(--tiptap-card-bg-color)]",
+  "border border-[var(--tiptap-card-border-color)]",
+  "flex flex-col items-center",
+  "outline-none",
+  "relative min-w-0 break-words bg-clip-border",
+]);
+
+const cardHeaderVariants = cva([
+  "p-1.5 flex-none",
+  "flex items-center justify-between",
+  "w-full",
+  "border-b border-[var(--tiptap-card-border-color)]",
+]);
+
+const cardBodyVariants = cva("p-1.5 flex-1 overflow-y-auto");
+
+const cardFooterVariants = cva([
+  "p-1.5 flex-none w-full",
+  "border-t border-[var(--tiptap-card-border-color)]",
+]);
+
+const cardItemGroupVariants = cva("relative flex align-middle min-w-max", {
+  variants: {
+    orientation: {
+      horizontal: "flex-row items-center gap-1",
+      vertical: "flex-col justify-center",
+    },
   },
-  groupLabel:
-    "pt-3 px-2 pb-1 text-xs font-semibold capitalize text-[var(--tiptap-card-group-label-color)]",
+  defaultVariants: {
+    orientation: "vertical",
+  },
+});
+
+const cardGroupLabelVariants = cva([
+  "pt-3 px-2 pb-1",
+  "text-xs font-semibold leading-normal capitalize",
+  "text-[var(--tiptap-card-group-label-color)]",
+]);
+
+// Types
+type CardProps = React.ComponentProps<"div"> & {
+  ref?: React.Ref<HTMLDivElement>;
 };
+type CardItemGroupProps = CardProps &
+  VariantProps<typeof cardItemGroupVariants>;
 
-interface CardProps extends React.ComponentProps<"div"> {
-  ref?: React.Ref<HTMLDivElement>;
-}
-
-export function Card({ className, ref, ...props }: CardProps) {
+// Components
+function Card({ className, ref, ...props }: CardProps) {
   return (
-    <div ref={ref} className={cn(cardStyles.base, className)} {...props} />
+    <div
+      data-slot="card"
+      ref={ref}
+      className={cn(cardVariants(), className)}
+      {...props}
+    />
   );
 }
 
-export function CardHeader({ className, ref, ...props }: CardProps) {
+function CardHeader({ className, ref, ...props }: CardProps) {
   return (
-    <div ref={ref} className={cn(cardStyles.header, className)} {...props} />
+    <div
+      data-slot="card-header"
+      ref={ref}
+      className={cn(cardHeaderVariants(), className)}
+      {...props}
+    />
   );
 }
 
-export function CardBody({ className, ref, ...props }: CardProps) {
+function CardBody({ className, ref, ...props }: CardProps) {
   return (
-    <div ref={ref} className={cn(cardStyles.body, className)} {...props} />
+    <div
+      data-slot="card-body"
+      ref={ref}
+      className={cn(cardBodyVariants(), className)}
+      {...props}
+    />
   );
 }
 
-interface CardItemGroupProps extends React.ComponentProps<"div"> {
-  orientation?: "horizontal" | "vertical";
-  ref?: React.Ref<HTMLDivElement>;
+function CardFooter({ className, ref, ...props }: CardProps) {
+  return (
+    <div
+      data-slot="card-footer"
+      ref={ref}
+      className={cn(cardFooterVariants(), className)}
+      {...props}
+    />
+  );
 }
 
-export function CardItemGroup({
+function CardItemGroup({
   className,
-  orientation = "vertical",
+  orientation,
   ref,
   ...props
 }: CardItemGroupProps) {
   return (
     <div
-      ref={ref}
+      data-slot="card-item-group"
       data-orientation={orientation}
-      className={cn(
-        cardStyles.itemGroup.base,
-        orientation === "horizontal"
-          ? cardStyles.itemGroup.horizontal
-          : cardStyles.itemGroup.vertical,
-        className,
-      )}
+      ref={ref}
+      className={cn(cardItemGroupVariants({ orientation }), className)}
       {...props}
     />
   );
 }
 
-export function CardGroupLabel({ className, ref, ...props }: CardProps) {
+function CardGroupLabel({ className, ref, ...props }: CardProps) {
   return (
     <div
+      data-slot="card-group-label"
       ref={ref}
-      className={cn(cardStyles.groupLabel, className)}
+      className={cn(cardGroupLabelVariants(), className)}
       {...props}
     />
   );
 }
 
-export function CardFooter({ className, ref, ...props }: CardProps) {
-  return (
-    <div ref={ref} className={cn(cardStyles.footer, className)} {...props} />
-  );
-}
+export {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardItemGroup,
+  CardGroupLabel,
+  cardVariants,
+};
