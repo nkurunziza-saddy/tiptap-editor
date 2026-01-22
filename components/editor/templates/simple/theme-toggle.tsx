@@ -10,26 +10,26 @@ import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = () => setIsDarkMode(mediaQuery.matches);
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   useEffect(() => {
-    const initialDarkMode =
-      !!document.querySelector('meta[name="color-scheme"][content="dark"]') ||
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setIsDarkMode(initialDarkMode);
-  }, []);
-
-  useEffect(() => {
+    if (!mounted) return;
     document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
+  }, [isDarkMode, mounted]);
 
-  const toggleDarkMode = () => setIsDarkMode((isDark) => !isDark);
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+
+  if (!mounted) return null;
 
   return (
     <Button
@@ -38,9 +38,9 @@ export function ThemeToggle() {
       data-style="ghost"
     >
       {isDarkMode ? (
-        <MoonStarIcon className="tt size-4 shrink-0" />
+        <MoonStarIcon className="size-4 shrink-0" />
       ) : (
-        <SunIcon className="tt size-4 shrink-0" />
+        <SunIcon className="size-4 shrink-0" />
       )}
     </Button>
   );

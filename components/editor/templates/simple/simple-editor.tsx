@@ -157,11 +157,11 @@ const MobileToolbarContent = ({
   <>
     <ToolbarGroup>
       <Button data-style="ghost" onClick={onBack}>
-        <ArrowLeftIcon className="tt size-4 shrink-0" />
+        <ArrowLeftIcon className="size-4 shrink-0" />
         {type === "highlighter" ? (
-          <HighlighterIcon className="tt size-4 shrink-0" />
+          <HighlighterIcon className="size-4 shrink-0" />
         ) : (
-          <LinkIcon className="tt size-4 shrink-0" />
+          <LinkIcon className="size-4 shrink-0" />
         )}
       </Button>
     </ToolbarGroup>

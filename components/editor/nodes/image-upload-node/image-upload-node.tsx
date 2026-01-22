@@ -399,7 +399,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               onRemove();
             }}
           >
-            <CloseIcon className="tt size-4 shrink-0" />
+            <CloseIcon className="size-4 shrink-0" />
           </Button>
         </div>
       </div>
