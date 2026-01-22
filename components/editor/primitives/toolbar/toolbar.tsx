@@ -27,7 +27,7 @@ const toolbarVariants = cva("flex items-center gap-1", {
       ],
       floating: [
         "p-0.5",
-        "rounded-2xl",
+        "rounded-xl",
         "border border-[var(--editor-toolbar-border-color)]",
         "bg-[var(--editor-toolbar-bg-color)]",
         "shadow-lg",
