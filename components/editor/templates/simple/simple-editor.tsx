@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
+import { EditorContent, EditorContext, useEditor as useNativeEditor } from "@tiptap/react";
 
 import { StarterKit } from "@tiptap/starter-kit";
 import { Image } from "@tiptap/extension-image";
@@ -175,7 +175,7 @@ export function SimpleEditor() {
   );
   const toolbarRef = useRef<HTMLDivElement>(null);
 
-  const editor = useEditor({
+  const editor = useNativeEditor({
     immediatelyRender: false,
     editorProps: {
       attributes: {
